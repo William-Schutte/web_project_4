@@ -1,0 +1,11 @@
+.form__occupation {
+    width: 100%;
+    border: none;
+    font-family: Inter;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #000;
+    margin-bottom: auto;
+}

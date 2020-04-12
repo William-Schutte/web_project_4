@@ -1,0 +1,7 @@
+.card__fav-button {
+    margin: auto 18px auto auto;
+    padding: 0;
+    height: min-content;
+    line-height: 0;
+    border: none;
+}

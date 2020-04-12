@@ -1,0 +1,13 @@
+@import url(./__button-icon/card__button-icon.css);
+@import url(./__fav-button/card__fav-button.css);
+@import url(./__image/card__image.css);
+@import url(./__name/card__name.css);
+@import url(./__overlay/card__overlay.css);
+
+.card {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+}

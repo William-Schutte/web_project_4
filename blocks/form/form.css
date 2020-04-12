@@ -1,0 +1,21 @@
+@import url(./__container/form__container.css);
+@import url(./__exit-button/form__exit-button.css);
+@import url(./__exit-icon/form__exit-icon.css);
+@import url(./__name/form__name.css);
+@import url(./__occupation/form__occupation.css);
+@import url(./__save-button/form__save-button.css);
+@import url(./__title/form__title.css);
+
+.form {
+    position: absolute;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, .5);
+    height: 100%;
+    width: 100%;
+    max-width: 882px;
+    display: none;
+}
+
+.form_opened {
+    display: block;
+}

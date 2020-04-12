@@ -1,0 +1,10 @@
+.form__exit-button {
+    display: flex;
+    position: absolute;
+    top: -48px;
+    right: -48px;
+    background: none;
+    border: 0;
+    padding: 0;
+    margin: 0;
+}

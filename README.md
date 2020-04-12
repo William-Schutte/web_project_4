@@ -8,7 +8,7 @@ JavaScript, user interactivity, and communication between HTML, CSS, and JS. The
 was provided on Figma, an online collaborative interface prototyping tool. 
 
 ### Techniques
-This page features a responsive design, editable content, a pobup box, and editable form fields
+This page features a responsive design, editable content, a popup box, and editable form fields
 powered by JS. 
 Development followed best practices for Git commits, branching, and merging.
 Internally, the site is designed under BEM methodology, including nested file structure. 
