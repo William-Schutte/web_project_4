@@ -1,8 +1,14 @@
 .card__fav-button {
     margin: auto 18px auto auto;
     padding: 0;
-    height: min-content;
+    height: 29px;
+    width: 27px;
     line-height: 0;
     border: none;
     background: none;
+    background-image: url(../../../images/heart-icon.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: auto;
+    cursor: pointer;
 }
