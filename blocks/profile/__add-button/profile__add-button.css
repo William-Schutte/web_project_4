@@ -9,3 +9,9 @@
     width: 100%;
     flex-shrink: 1;
 }
+
+@media screen and (max-width: 600px) {
+    .profile__add-button {
+        max-width: 100%;
+    }
+}

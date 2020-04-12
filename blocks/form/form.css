@@ -9,13 +9,19 @@
 .form {
     position: absolute;
     z-index: 1;
-    background-color: rgba(0, 0, 0, .5);
+    background-color: rgba(0, 0, 0, .7);
     height: 100%;
-    width: 100%;
+    width: calc(100% - 72px);
     max-width: 882px;
     display: none;
 }
 
 .form_opened {
     display: block;
+}
+
+@media screen and (max-width: 425px) {
+    .form {
+        width: calc(100% - 38px);
+    }
 }

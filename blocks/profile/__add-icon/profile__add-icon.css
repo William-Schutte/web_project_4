@@ -1,0 +1,11 @@
+.profile__add-icon {
+    display: flex;
+    margin: auto;
+}
+
+@media screen and (max-width: 600px) {
+    .profile__add-icon {
+        height: 16px;
+        width: 16px;
+    }
+}

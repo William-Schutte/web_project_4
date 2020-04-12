@@ -8,3 +8,10 @@
     padding: 0;
     margin: 0;
 }
+
+@media screen and (max-width: 600px) {
+    .form__exit-button {
+        top: -54px;
+        right: -10px;
+    }
+}
