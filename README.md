@@ -30,9 +30,14 @@ This page is also available from my GitHub at the following link:
 
 ##### Fixes:
     HTML:
-    Added alternate default font-family property to page class
     Moved form element to end of body (and readjusted position)
+
+    CSS:
+    Added alternate default font-family property to page class
+    Made header logo a background image
+    Changed profile__name to prevent text overflow and all screen sizes
+    Adjusted cards__container sizing and res scaling to keep min width on cards (282px)
 
     JS:
     Removed debug console.log lines
-    
+    Changed unaltered variables to const

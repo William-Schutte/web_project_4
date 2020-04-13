@@ -15,22 +15,8 @@
 <!-- Page Content -->
 <body class="page">
 
-    <!-- Popup Edit Form -->
-    <section class="form">
-        <div class="form__container">
-            <h2 class="form__title">Edit profile</h2>
-            <input class="form__name" type="text">
-            <input class="form__occupation" type="text">
-            <button class="form__save-button btn-animate" type="submit">Save</button>
-            <button class="form__exit-button  btn-animate" type="button">
-                <img class="form__exit-icon" src="images/exit-icon.svg" alt="Close form">
-            </button>
-        </div>
-    </section>
-
-    <header class="header">
-        <img class="header__logo" src="./images/header-logo.svg" alt="Header Logo">
-    </header>
+    <!-- Header section, simply contains logo and bottom border -->
+    <header class="header"></header>
     
     <main class="content">
         <!-- Profile section at top of page, contains two buttons for editing profile and cards -->
@@ -40,12 +26,8 @@
                 <h2 class="profile__name">Jacques Cousteau</h2>
                 <p class="profile__occupation">Explorer</p>
             </div>
-            <button class="profile__edit-button btn-animate" type="button">
-                <img class="profile__edit-icon" src="./images/edit-icon.svg">
-            </button>
-            <button class="profile__add-button btn-animate" type="button">
-                <img class="profile__add-icon" src="./images/add-icon.svg">
-            </button>
+            <button class="profile__edit-button btn-animate" type="button"></button>
+            <button class="profile__add-button btn-animate" type="button"></button>
         </section>
 
         <!-- Image cards section, will self-adjust dimensions responsively -->
@@ -55,54 +37,42 @@
                     <img class="card__image" src="./images/place-amsterdam.jpg" alt="">
                     <div class="card__overlay">
                         <h2 class="card__name">Amsterdam</h2>
-                        <button class="card__fav-button">
-                            <img class="card__button-icon" src="./images/heart-icon.svg" alt="Favorite Button">
-                        </button>
+                        <button class="card__fav-button"></button>
                     </div>
                 </li>
                 <li class="card">
                     <img class="card__image" src="./images/place-athens.jpg" alt="">
                     <div class="card__overlay">
                         <h2 class="card__name">Athens</h2>
-                        <button class="card__fav-button">
-                            <img class="card__button-icon" src="./images/heart-icon.svg" alt="Favorite Button">
-                        </button>
+                        <button class="card__fav-button"></button>
                     </div>
                 </li>
                 <li class="card">
                     <img class="card__image" src="./images/place-bali.jpg" alt="">
                     <div class="card__overlay">
                         <h2 class="card__name">Bali</h2>
-                        <button class="card__fav-button">
-                            <img class="card__button-icon" src="./images/heart-icon.svg" alt="Favorite Button">
-                        </button>
+                        <button class="card__fav-button"></button>
                     </div>
                 </li>
                 <li class="card">
                     <img class="card__image" src="./images/place-machu.jpg" alt="">
                     <div class="card__overlay">
                         <h2 class="card__name">Machu Picchu</h2>
-                        <button class="card__fav-button">
-                            <img class="card__button-icon" src="./images/heart-icon.svg" alt="Favorite Button">
-                        </button>
+                        <button class="card__fav-button"></button>
                     </div>
                 </li>
                 <li class="card">
                     <img class="card__image" src="./images/place-sanfrancisco.jpg" alt="">
                     <div class="card__overlay">
                         <h2 class="card__name">San Francisco</h2>
-                        <button class="card__fav-button">
-                            <img class="card__button-icon" src="./images/heart-icon.svg" alt="Favorite Button">
-                        </button>
+                        <button class="card__fav-button"></button>
                     </div>
                 </li>
                 <li class="card">
                     <img class="card__image" src="./images/place-switzerland.jpg" alt="">
                     <div class="card__overlay">
                         <h2 class="card__name">Switzerland</h2>
-                        <button class="card__fav-button">
-                            <img class="card__button-icon" src="./images/heart-icon.svg" alt="Favorite Button">
-                        </button>
+                        <button class="card__fav-button"></button>
                     </div>
                 </li>
             </ul> 
@@ -112,6 +82,20 @@
             <p class="footer__copyright">&copy;2020 William Schutte. Around the U.S.</p>
         </footer>
     </main>
+
+    <!-- Popup Edit Form -->
+    <section class="form">
+        <div class="form__container">
+            <h2 class="form__title">Edit profile</h2>
+            <input class="form__name" type="text">
+            <input class="form__occupation" type="text">
+            <button class="form__save-button btn-animate" type="submit">Save</button>
+            <button class="form__exit-button  btn-animate" type="button"></button>
+        </div>
+    </section>
+
+    <!-- Script for popup Form -->
     <script src="./scripts/index.js"></script>
+
 </body>
 </html>
