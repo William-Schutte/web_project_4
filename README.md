@@ -26,6 +26,8 @@ This page is also available from my GitHub at the following link:
 
 
 
-#### Update Notes 4/XX/2020 - After 1st Review
+#### Update Notes 4/13/2020 - After 1st Review
 
 ##### Fixes:
+    Added alternate default font-family property to page class
+    Moved form element to end of body (and readjusted position)
