@@ -1,7 +1,7 @@
-let editBtn = document.querySelector('.profile__edit-button');
-let form = document.querySelector('.form');
-let closeBtn = form.querySelector('.form__exit-button');
-let saveBtn = form.querySelector('.form__save-button');
+const editBtn = document.querySelector('.profile__edit-button');
+const form = document.querySelector('.form');
+const closeBtn = form.querySelector('.form__exit-button');
+const saveBtn = form.querySelector('.form__save-button');
 let formName = form.querySelector(".form__name");
 let formOccupation = form.querySelector(".form__occupation");
 
