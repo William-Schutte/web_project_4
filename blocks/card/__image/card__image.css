@@ -4,4 +4,6 @@
     object-fit: cover;
     z-index: -1;
     height: 282px;
+    background-size: cover;
+    background-position: center;
 }

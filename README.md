@@ -26,16 +26,17 @@ This page is also available from my GitHub at the following link:
 
 
 
-#### Update Notes 4/13/2020 - After 1st Review
+#### Update Notes 4/15/2020 - After 1st Review
 
 ##### Fixes:
     HTML:
     Moved form element to end of body (and readjusted position)
+    Changed images to background images with inline style
 
     CSS:
     Added alternate default font-family property to page class
     Made header logo a background image
-    Changed profile__name to prevent text overflow and all screen sizes
+    Changed profile__name and __occupation to prevent text overflow at all screen sizes
     Adjusted cards__container sizing and res scaling to keep min width on cards (282px)
 
     JS:

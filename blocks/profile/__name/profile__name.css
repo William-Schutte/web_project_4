@@ -14,7 +14,7 @@
     .profile__name {
         font-size: 30px;
         line-height: 56px;
-        max-width: 250px;
+        max-width: calc(50vw - 50px);
     }
 }
 
@@ -24,7 +24,7 @@
         line-height: 56px;
         margin-bottom: 0;
         align-self: center;
-        max-width: calc(100% - 60px);
+        max-width: calc(100vw - 155px);
     }
 }
 
@@ -34,6 +34,6 @@
         line-height: 56px;
         margin-bottom: 0;
         align-self: center;
-        max-width: calc(100% - 100px);
+        max-width: calc(100vw - 70px);
     }
 }
