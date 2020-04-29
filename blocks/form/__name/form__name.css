@@ -1,4 +1,5 @@
 .form__name {
+    display: none;
     width: 100%;
     border: none;
     font-family: Inter;

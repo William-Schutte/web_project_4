@@ -1,0 +1,20 @@
+.picture__exit-button {
+    display: flex;
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    background: none;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    width: 58px;
+    height: 58px;
+    background-image: url(../../../images/exit-icon.svg);
+}
+
+@media screen and (max-width: 600px) {
+    .picture__exit-button {
+        top: -54px;
+        right: -10px;
+    }
+}

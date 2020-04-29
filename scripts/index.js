@@ -1,32 +1,175 @@
+// Buttons
 const editBtn = document.querySelector('.profile__edit-button');
-const form = document.querySelector('.form');
+const addBtn = document.querySelector('.profile__add-button');
+const formText = [
+    {
+        name: "Edit profile",
+        btnText: "Save"
+    },
+    {
+        name: "New place",
+        btnText: "Create"
+    }
+];
+
+// Edit Form Variables
+let form = document.querySelector('.form');
 const closeBtn = form.querySelector('.form__exit-button');
 const saveBtn = form.querySelector('.form__save-button');
 const formName = form.querySelector(".form__name");
 const formOccupation = form.querySelector(".form__occupation");
+const formPlace = form.querySelector(".form__place");
+const formUrl = form.querySelector(".form__url");
 
 let profileName = document.querySelector(".profile__name");
 let profileOccupation = document.querySelector(".profile__occupation");
 
-formName.setAttribute('value', profileName.textContent.trim());
-formOccupation.setAttribute('value', profileOccupation.textContent);
 
-function openForm() {
+// Image Cards Variables
+const cardList = document.querySelector(".cards__container");
+const cardTemplate = document.querySelector("#card-template");
+const pictureTemplate = document.querySelector("#picture-popup-template");
+const page = document.querySelector(".content");
+const initialCards = [
+    {
+        name: "Amsterdam",
+        link: "https://images.unsplash.com/photo-1517736996303-4eec4a66bb17?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80"
+    },
+    {
+        name: "Bali",
+        link: "https://images.unsplash.com/photo-1536152470836-b943b246224c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=678&q=80"
+    },
+    {
+        name: "Machu Picchu",
+        link: "https://images.unsplash.com/photo-1509216242873-7786f446f465?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=675&q=80"
+    },
+    {
+        name: "San Francisco",
+        link: "https://images.unsplash.com/photo-1471306224500-6d0d218be372?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"
+    },
+    {
+        name: "Athens",
+        link: "https://images.unsplash.com/photo-1586172342368-d12ff1546bbc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=701&q=80"
+    },
+    {
+        name: "Switzerland",
+        link: "https://images.unsplash.com/photo-1586116458878-8f44c4c290f2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=701&q=80"
+    }
+];
+// const favButton = document.querySelector("card__fav-button");
+
+
+// Function for adding new cards, also used to set initial cards
+function createCard(cardDetails) {
+    let newCard = cardTemplate.content.cloneNode(true);
+    let nameString = cardDetails['name'];
+    let imgString = "background-image: url(" + cardDetails['link'] + ");";
+    newCard.querySelector(".card__name").textContent = nameString;
+    newCard.querySelector(".card__image").setAttribute('style', imgString);
+    cardList.prepend(newCard);
+
+    // Adds event listener to each card's fav button, delete button, and img
+    let favButton = document.querySelector(".card__fav-button");
+    favButton.addEventListener("click", function (evt) {favToggle(evt)});
+    let deleteButton = document.querySelector(".card__delete-button");
+    deleteButton.addEventListener("click", function (evt) {deleteCard(evt)});
+    let imgButton = document.querySelector(".card__image");
+    imgButton.addEventListener("click", function (evt) {imgOpen(evt)});
+}
+
+// Initialization of precoded cards (x6)
+initialCards.forEach(function (itm) {createCard(itm)});
+
+// Favorite button toggle function
+function favToggle(evt) {
+    evt.target.classList.toggle("card__fav-button_active");
+}
+
+// Delete card function
+function deleteCard(evt) {
+    evt.target.parentElement.remove();
+}
+
+// Function that opens/creates image popup
+function imgOpen(evt) {
+    // Slices the url out of the background image css property of the target node
+    let imgUrl = evt.target.style['backgroundImage'].slice(5, -2);
+    let card = evt.target.closest(".card");
+    let imgName = card.querySelector(".card__name").textContent;
+    let picturePopup = pictureTemplate.content.cloneNode(true);
+    picturePopup.querySelector(".picture__img").setAttribute("src", imgUrl);
+    picturePopup.querySelector(".picture__title").textContent = imgName;
+    page.append(picturePopup);
+
+    // Function for closing image, nested in imgOpen due to event listener on
+    // created closeButton
+    function imgClose(evt) {
+        evt.target.parentElement.parentElement.remove();
+    }
+
+    let closeButton = document.querySelector(".picture__exit-button");
+    console.log(picturePopup);
+    closeButton.addEventListener("click", function (evt) {imgClose(evt)});
+}
+
+// Opens the popup, depending on which button is pressed, changes text and visible input fields
+function openForm(formLabels) {
+    form.querySelector(".form__title").textContent = formLabels["name"];
+    form.querySelector(".form__save-button").textContent = formLabels["btnText"];
+    
+    // Logic for EDIT FORM and ADD FORM
+    if (formLabels["name"] === "Edit profile") {
+        formName.classList.add('form_opened');
+        formOccupation.classList.add('form_opened');
+        formName.setAttribute('value', profileName.textContent)
+        formOccupation.setAttribute('value', profileOccupation.textContent)
+    } else {
+        formPlace.classList.add('form_opened');
+        formUrl.classList.add('form_opened');
+        formPlace.setAttribute('placeholder', "Title");
+        formUrl.setAttribute('placeholder', "Image link");
+    }
+
     form.classList.toggle('form_opened');
 }
 
+// Save Form function, works for both form types
 function saveForm(evt) {
     evt.preventDefault();
 
-    let nameInput = formName.value;
-    let occInput = formOccupation.value;
+    // Logic for EDIT FORM and ADD FORM
+    if (form.querySelector(".form__title").textContent === "Edit profile") {
+        let nameInput = formName.value;
+        let occInput = formOccupation.value;
+        profileName.textContent = nameInput;
+        profileOccupation.textContent = occInput;
+    } else {
+        let newCard = {
+            name: "",
+            link: ""
+        };
+        newCard['name'] = formPlace.value;
+        newCard['link'] = formUrl.value;
+        
+        createCard(newCard);
+        // Reset fields for next open
+        formPlace.value = "";
+        formUrl.value = "";
+    }
 
-    profileName.textContent = nameInput;
-    profileOccupation.textContent = occInput;
-
-    form.classList.toggle('form_opened');
+    closeForm();
 }
 
-editBtn.addEventListener("click", openForm);
-closeBtn.addEventListener("click", openForm);
+// Function turns all fields off and closes popup
+function closeForm() {
+    form.classList.toggle('form_opened');
+    formName.classList.remove('form_opened');
+    formOccupation.classList.remove('form_opened');
+    formPlace.classList.remove('form_opened');
+    formUrl.classList.remove('form_opened');
+}
+
+editBtn.addEventListener("click", () => openForm(formText[0]));
+addBtn.addEventListener("click", () => openForm(formText[1]));
+closeBtn.addEventListener("click", closeForm);
 saveBtn.addEventListener("click", saveForm);

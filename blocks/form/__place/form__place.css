@@ -1,4 +1,4 @@
-.form__occupation {
+.form__place {
     display: none;
     width: 100%;
     border: none;
@@ -8,5 +8,5 @@
     line-height: 17px;
     padding-bottom: 8px;
     border-bottom: 1px solid #000;
-    margin-bottom: auto;
+    margin-bottom: 28px;
 }

@@ -2,8 +2,10 @@
     display: flex;
     width: 100%;
     object-fit: cover;
-    z-index: -1;
+    z-index: 0;
     height: 282px;
     background-size: cover;
     background-position: center;
+    border: none;
+    cursor: pointer;
 }
