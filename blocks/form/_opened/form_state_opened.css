@@ -1,0 +1,7 @@
+.form.form_state_opened, .form__name.form_state_opened, 
+.form__occupation.form_state_opened, .form__place.form_state_opened, 
+.form__url.form_state_opened {
+    display: block;
+    visibility: visible;
+    opacity: 1;
+}

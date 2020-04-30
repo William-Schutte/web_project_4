@@ -1,6 +1,7 @@
 @import url(../vendor/normalize.css);
 @import url(../vendor/fonts/fonts.css);
-@import url(../blocks/animations/keyframes.css);
+@import url(../blocks/fade-in/fade-in.css);
+@import url(../blocks/fade-out/fade-out.css);
 @import url(../blocks/btn-animate/btn-animate.css);
 @import url(../blocks/page/page.css);
 @import url(../blocks/header/header.css);

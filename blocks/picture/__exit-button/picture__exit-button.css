@@ -14,7 +14,10 @@
 
 @media screen and (max-width: 600px) {
     .picture__exit-button {
-        top: -54px;
-        right: -10px;
+        width: 38px;
+        height: 38px;
+        background-size: contain;
+        top: -33px;
+        right: -33px;
     }
 }

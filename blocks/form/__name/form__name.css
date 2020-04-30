@@ -2,11 +2,18 @@
     display: none;
     width: 100%;
     border: none;
-    font-family: Inter;
     font-weight: normal;
     font-size: 14px;
     line-height: 17px;
     padding-bottom: 8px;
     border-bottom: 1px solid #000;
     margin-bottom: 28px;
+}
+
+@media screen  and (max-width: 600px) {
+    .form__name {
+        font-size: 12px;
+        line-height: 15px;
+        margin-bottom: 20px;
+    }
 }

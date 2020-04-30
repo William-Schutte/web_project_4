@@ -14,7 +14,7 @@ const formText = [
 ];
 
 // Edit Form Variables
-let form = document.querySelector('.form');
+const form = document.querySelector('.form');
 const closeBtn = form.querySelector('.form__exit-button');
 const saveBtn = form.querySelector('.form__save-button');
 const formName = form.querySelector(".form__name");
@@ -22,8 +22,8 @@ const formOccupation = form.querySelector(".form__occupation");
 const formPlace = form.querySelector(".form__place");
 const formUrl = form.querySelector(".form__url");
 
-let profileName = document.querySelector(".profile__name");
-let profileOccupation = document.querySelector(".profile__occupation");
+const profileName = document.querySelector(".profile__name");
+const profileOccupation = document.querySelector(".profile__occupation");
 
 
 // Image Cards Variables
@@ -65,21 +65,22 @@ const animationDelay = 400;
 // ###########################  Card Creation Functions  ##########################################
 
 // Function for adding new cards, also used to set initial cards
-function createCard(cardDetails) {
-    let newCard = cardTemplate.content.cloneNode(true);
-    let nameString = cardDetails['name'];
-    let imgString = "background-image: url(" + cardDetails['link'] + ");";
+function createCard(cardText) {
+    const newCard = cardTemplate.content.cloneNode(true);
+    const nameString = cardText.name;
+    const imgString =  cardText.link;
     newCard.querySelector(".card__name").textContent = nameString;
-    newCard.querySelector(".card__image").setAttribute('style', imgString);
+    newCard.querySelector(".card__image").setAttribute('src', imgString);
+    newCard.querySelector(".card__image").setAttribute('alt', "Photo of " + nameString);
     cardList.prepend(newCard);
 
     // Adds event listener to each card's fav button, delete button, and img
-    let favButton = document.querySelector(".card__fav-button");
-    favButton.addEventListener("click", function (evt) {favToggle(evt)});
-    let deleteButton = document.querySelector(".card__delete-button");
-    deleteButton.addEventListener("click", function (evt) {deleteCard(evt)});
-    let imgButton = document.querySelector(".card__image");
-    imgButton.addEventListener("click", function (evt) {imgOpen(evt)});
+    const favButton = document.querySelector(".card__fav-button");
+    favButton.addEventListener("click", favToggle);
+    const deleteButton = document.querySelector(".card__delete-button");
+    deleteButton.addEventListener("click", deleteCard);
+    const imgButton = document.querySelector(".card__image");
+    imgButton.addEventListener("click", imgOpen);
 }
 
 // Favorite button toggle function
@@ -96,27 +97,27 @@ function deleteCard(evt) {
 
 // Function that opens/creates image popup
 function imgOpen(evt) {
-    // Slices the url out of the background image css property of the target node
-    let imgUrl = evt.target.style['backgroundImage'].slice(5, -2);
-    let card = evt.target.closest(".card");
-    let imgName = card.querySelector(".card__name").textContent;
-    let picturePopup = pictureTemplate.content.cloneNode(true);
+    const imgUrl = evt.target.getAttribute("src");
+    const card = evt.target.closest(".card");
+    const imgName = card.querySelector(".card__name").textContent;
+    const picturePopup = pictureTemplate.content.cloneNode(true);
     picturePopup.querySelector(".picture__img").setAttribute("src", imgUrl);
+    picturePopup.querySelector(".picture__img").setAttribute("alt", "Photo of " + imgName);
     picturePopup.querySelector(".picture__title").textContent = imgName;
     page.append(picturePopup);
 
     
     // Function for closing image, nested in imgOpen due to event listener on created closeButton below
     function imgClose(evt) {
-        document.querySelector(".picture").classList.add("picture_closing");
+        document.querySelector(".picture").classList.add("fade-out");
         setTimeout(function () {
             evt.target.parentElement.parentElement.remove();
         }, animationDelay);
     }
 
-    let closeButton = document.querySelector(".picture__exit-button");
-    closeButton.addEventListener("click", function (evt) {imgClose(evt)});
-    document.querySelector(".picture").classList.add("picture_opening");
+    const closeButton = document.querySelector(".picture__exit-button");
+    closeButton.addEventListener("click", imgClose);
+    document.querySelector(".picture").classList.add("fade-in");
 }
 
 // ###########################  Form Open/Closing Functions  ######################################
@@ -127,19 +128,21 @@ function openForm(formLabels) {
     form.querySelector(".form__save-button").textContent = formLabels["btnText"];
     
     // Logic for EDIT FORM and ADD FORM
+    // Uses one form block w/ all 4 fields but different fields are visible depending on the form opened
+    // This is why individual fields are made visible and opacity is not adjusted
     if (formLabels["name"] === "Edit profile") {
-        formName.classList.add('form_opened');
-        formOccupation.classList.add('form_opened');
+        formName.classList.add('form_state_opened');
+        formOccupation.classList.add('form_state_opened');
         formName.setAttribute('value', profileName.textContent)
         formOccupation.setAttribute('value', profileOccupation.textContent)
     } else {
-        formPlace.classList.add('form_opened');
-        formUrl.classList.add('form_opened');
+        formPlace.classList.add('form_state_opened');
+        formUrl.classList.add('form_state_opened');
         formPlace.setAttribute('placeholder', "Title");
         formUrl.setAttribute('placeholder', "Image link");
     }
 
-    form.classList.toggle('form_opened');
+    form.classList.toggle('form_state_opened');
 }
 
 // Save Form function, works for both form types
@@ -148,12 +151,12 @@ function saveForm(evt) {
 
     // Logic for EDIT FORM and ADD FORM
     if (form.querySelector(".form__title").textContent === "Edit profile") {
-        let nameInput = formName.value;
-        let occInput = formOccupation.value;
+        const nameInput = formName.value;
+        const occInput = formOccupation.value;
         profileName.textContent = nameInput;
         profileOccupation.textContent = occInput;
     } else {
-        let newCard = {
+        const newCard = {
             name: "",
             link: ""
         };
@@ -172,16 +175,16 @@ function saveForm(evt) {
 
 // Function turns all fields off and closes form popup
 function closeForm() {
-    form.classList.add('form_closing');
+    form.classList.add('fade-out');
     
     // Timer used to allow time for fade-out animation
     setTimeout(function () {
-        form.classList.toggle('form_opened');
-        formName.classList.remove('form_opened');
-        formOccupation.classList.remove('form_opened');
-        formPlace.classList.remove('form_opened');
-        formUrl.classList.remove('form_opened');
-        form.classList.remove('form_closing');
+        form.classList.toggle('form_state_opened');
+        formName.classList.remove('form_state_opened');
+        formOccupation.classList.remove('form_state_opened');
+        formPlace.classList.remove('form_state_opened');
+        formUrl.classList.remove('form_state_opened');
+        form.classList.remove('fade-out');
     }, animationDelay);  
 }
 

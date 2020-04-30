@@ -6,34 +6,18 @@
 @import url(./__url/form__url.css);
 @import url(./__save-button/form__save-button.css);
 @import url(./__title/form__title.css);
+@import url(./_opened/form_state_opened.css);
 
 .form {
-    position: absolute;
+    position: fixed;
     top: 0;
-    left: auto;
+    left: 0;
     z-index: 1;
     background-color: rgba(0, 0, 0, .7);
     height: 100%;
-    width: calc(100% - 72px);
-    max-width: 882px;
+    width: 100%;
     display: block;
     visibility: hidden;
     opacity: 0;
     transition: visibility 0s linear, opacity .4s ease;
-}
-
-.form_opened {
-    display: block;
-    visibility: visible;
-    opacity: 1;
-}
-
-.form_closing {
-    animation: fadeOut .4s forwards;
-}
-
-@media screen and (max-width: 425px) {
-    .form {
-        width: calc(100% - 38px);
-    }
 }
