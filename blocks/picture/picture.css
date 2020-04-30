@@ -12,4 +12,15 @@
     height: 100%;
     width: 100%;
     background-color: rgba(0, 0, 0, .85);
+    visibility: hidden;
+    opacity: 0;
+}
+
+.picture_opening {
+    visibility: visible;
+    animation: fadeIn .4s forwards;
+}
+
+.picture_closing {
+    animation: fadeOut .4s forwards;
 }

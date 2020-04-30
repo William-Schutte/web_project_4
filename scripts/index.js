@@ -1,3 +1,4 @@
+// ###########################  Global Variable Declarations  #####################################
 // Buttons
 const editBtn = document.querySelector('.profile__edit-button');
 const addBtn = document.querySelector('.profile__add-button');
@@ -56,8 +57,12 @@ const initialCards = [
         link: "https://images.unsplash.com/photo-1586116458878-8f44c4c290f2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=701&q=80"
     }
 ];
-// const favButton = document.querySelector("card__fav-button");
 
+// Variable for delay functions, used to time closing of popups w/ CSS animation time
+const animationDelay = 400;
+
+
+// ###########################  Card Creation Functions  ##########################################
 
 // Function for adding new cards, also used to set initial cards
 function createCard(cardDetails) {
@@ -77,9 +82,6 @@ function createCard(cardDetails) {
     imgButton.addEventListener("click", function (evt) {imgOpen(evt)});
 }
 
-// Initialization of precoded cards (x6)
-initialCards.forEach(function (itm) {createCard(itm)});
-
 // Favorite button toggle function
 function favToggle(evt) {
     evt.target.classList.toggle("card__fav-button_active");
@@ -89,6 +91,8 @@ function favToggle(evt) {
 function deleteCard(evt) {
     evt.target.parentElement.remove();
 }
+
+// ###########################  Image Popup Function  #############################################
 
 // Function that opens/creates image popup
 function imgOpen(evt) {
@@ -101,18 +105,23 @@ function imgOpen(evt) {
     picturePopup.querySelector(".picture__title").textContent = imgName;
     page.append(picturePopup);
 
-    // Function for closing image, nested in imgOpen due to event listener on
-    // created closeButton
+    
+    // Function for closing image, nested in imgOpen due to event listener on created closeButton below
     function imgClose(evt) {
-        evt.target.parentElement.parentElement.remove();
+        document.querySelector(".picture").classList.add("picture_closing");
+        setTimeout(function () {
+            evt.target.parentElement.parentElement.remove();
+        }, animationDelay);
     }
 
     let closeButton = document.querySelector(".picture__exit-button");
-    console.log(picturePopup);
     closeButton.addEventListener("click", function (evt) {imgClose(evt)});
+    document.querySelector(".picture").classList.add("picture_opening");
 }
 
-// Opens the popup, depending on which button is pressed, changes text and visible input fields
+// ###########################  Form Open/Closing Functions  ######################################
+
+// Opens the form popup, depending on which button is pressed, changes text and visible input fields
 function openForm(formLabels) {
     form.querySelector(".form__title").textContent = formLabels["name"];
     form.querySelector(".form__save-button").textContent = formLabels["btnText"];
@@ -152,6 +161,7 @@ function saveForm(evt) {
         newCard['link'] = formUrl.value;
         
         createCard(newCard);
+
         // Reset fields for next open
         formPlace.value = "";
         formUrl.value = "";
@@ -160,14 +170,26 @@ function saveForm(evt) {
     closeForm();
 }
 
-// Function turns all fields off and closes popup
+// Function turns all fields off and closes form popup
 function closeForm() {
-    form.classList.toggle('form_opened');
-    formName.classList.remove('form_opened');
-    formOccupation.classList.remove('form_opened');
-    formPlace.classList.remove('form_opened');
-    formUrl.classList.remove('form_opened');
+    form.classList.add('form_closing');
+    
+    // Timer used to allow time for fade-out animation
+    setTimeout(function () {
+        form.classList.toggle('form_opened');
+        formName.classList.remove('form_opened');
+        formOccupation.classList.remove('form_opened');
+        formPlace.classList.remove('form_opened');
+        formUrl.classList.remove('form_opened');
+        form.classList.remove('form_closing');
+    }, animationDelay);  
 }
+
+
+// ###########################  Initialization of Page  ###########################################
+
+// Initialization of precoded cards (x6)
+initialCards.forEach(function (itm) {createCard(itm)});
 
 editBtn.addEventListener("click", () => openForm(formText[0]));
 addBtn.addEventListener("click", () => openForm(formText[1]));
