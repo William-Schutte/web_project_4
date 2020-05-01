@@ -72,15 +72,16 @@ function createCard(cardText) {
     newCard.querySelector(".card__name").textContent = nameString;
     newCard.querySelector(".card__image").setAttribute('src', imgString);
     newCard.querySelector(".card__image").setAttribute('alt', "Photo of " + nameString);
-    cardList.prepend(newCard);
 
     // Adds event listener to each card's fav button, delete button, and img
-    const favButton = document.querySelector(".card__fav-button");
+    const favButton = newCard.querySelector(".card__fav-button");
     favButton.addEventListener("click", favToggle);
-    const deleteButton = document.querySelector(".card__delete-button");
+    const deleteButton = newCard.querySelector(".card__delete-button");
     deleteButton.addEventListener("click", deleteCard);
-    const imgButton = document.querySelector(".card__image");
+    const imgButton = newCard.querySelector(".card__image");
     imgButton.addEventListener("click", imgOpen);
+
+    cardList.prepend(newCard);
 }
 
 // Favorite button toggle function
@@ -95,54 +96,69 @@ function deleteCard(evt) {
 
 // ###########################  Image Popup Function  #############################################
 
+// Function for closing image, nested in imgOpen due to event listener on created closeButton below
+function imgClose(evt) {
+    const picPopup = evt.target.parentElement.parentElement;
+    picPopup.classList.add("fade-out");
+    setTimeout(function () {
+        picPopup.remove();
+    }, animationDelay);
+}
+
 // Function that opens/creates image popup
 function imgOpen(evt) {
     const imgUrl = evt.target.getAttribute("src");
     const card = evt.target.closest(".card");
     const imgName = card.querySelector(".card__name").textContent;
-    const picturePopup = pictureTemplate.content.cloneNode(true);
+    const picturePopup = pictureTemplate.content.cloneNode(true).querySelector(".picture");
     picturePopup.querySelector(".picture__img").setAttribute("src", imgUrl);
     picturePopup.querySelector(".picture__img").setAttribute("alt", "Photo of " + imgName);
     picturePopup.querySelector(".picture__title").textContent = imgName;
-    page.append(picturePopup);
-
-    
-    // Function for closing image, nested in imgOpen due to event listener on created closeButton below
-    function imgClose(evt) {
-        document.querySelector(".picture").classList.add("fade-out");
-        setTimeout(function () {
-            evt.target.parentElement.parentElement.remove();
-        }, animationDelay);
-    }
-
-    const closeButton = document.querySelector(".picture__exit-button");
+        
+    const closeButton = picturePopup.querySelector(".picture__exit-button");
     closeButton.addEventListener("click", imgClose);
-    document.querySelector(".picture").classList.add("fade-in");
+    picturePopup.classList.add("fade-in");
+    page.append(picturePopup);
 }
 
 // ###########################  Form Open/Closing Functions  ######################################
 
 // Opens the form popup, depending on which button is pressed, changes text and visible input fields
 function openForm(formLabels) {
-    form.querySelector(".form__title").textContent = formLabels["name"];
-    form.querySelector(".form__save-button").textContent = formLabels["btnText"];
+    form.querySelector(".form__title").textContent = formLabels.name;
+    form.querySelector(".form__save-button").textContent = formLabels.btnText;
     
     // Logic for EDIT FORM and ADD FORM
     // Uses one form block w/ all 4 fields but different fields are visible depending on the form opened
     // This is why individual fields are made visible and opacity is not adjusted
     if (formLabels["name"] === "Edit profile") {
-        formName.classList.add('form_state_opened');
-        formOccupation.classList.add('form_state_opened');
+        formName.classList.add('form_opened');
+        formOccupation.classList.add('form_opened');
         formName.setAttribute('value', profileName.textContent)
         formOccupation.setAttribute('value', profileOccupation.textContent)
     } else {
-        formPlace.classList.add('form_state_opened');
-        formUrl.classList.add('form_state_opened');
+        formPlace.classList.add('form_opened');
+        formUrl.classList.add('form_opened');
         formPlace.setAttribute('placeholder', "Title");
         formUrl.setAttribute('placeholder', "Image link");
     }
 
-    form.classList.toggle('form_state_opened');
+    form.classList.toggle('form_opened');
+}
+
+// Function turns all fields off and closes form popup
+function closeForm() {
+    form.classList.add('fade-out');
+    
+    // Timer used to allow time for fade-out animation
+    setTimeout(function () {
+        form.classList.toggle('form_opened');
+        formName.classList.remove('form_opened');
+        formOccupation.classList.remove('form_opened');
+        formPlace.classList.remove('form_opened');
+        formUrl.classList.remove('form_opened');
+        form.classList.remove('fade-out');
+    }, animationDelay);  
 }
 
 // Save Form function, works for both form types
@@ -173,26 +189,10 @@ function saveForm(evt) {
     closeForm();
 }
 
-// Function turns all fields off and closes form popup
-function closeForm() {
-    form.classList.add('fade-out');
-    
-    // Timer used to allow time for fade-out animation
-    setTimeout(function () {
-        form.classList.toggle('form_state_opened');
-        formName.classList.remove('form_state_opened');
-        formOccupation.classList.remove('form_state_opened');
-        formPlace.classList.remove('form_state_opened');
-        formUrl.classList.remove('form_state_opened');
-        form.classList.remove('fade-out');
-    }, animationDelay);  
-}
-
-
 // ###########################  Initialization of Page  ###########################################
 
 // Initialization of precoded cards (x6)
-initialCards.forEach(function (itm) {createCard(itm)});
+initialCards.forEach(function (card) {createCard(card)});
 
 editBtn.addEventListener("click", () => openForm(formText[0]));
 addBtn.addEventListener("click", () => openForm(formText[1]));

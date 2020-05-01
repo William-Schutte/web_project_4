@@ -27,6 +27,31 @@ This page is also available from my GitHub at the following link:
 ***https://william-schutte.github.io/web_project_4/***
 
 -----
+#### Update Notes 5/1/2020 - Project 5, 2nd Review
+
+##### Fixes:
+    HTML:
+    Reverted header__logo back to <img> instead of background image of header
+    Changed profile pic to <img> element
+    Removed unnecessary </img> tag
+    Gave attribute "type" to all buttons
+
+    CSS:
+    Moved import locations of active/opened modifiers to removed cascading selector declarations
+    Adjusted form margin units to vh instead of %
+    Removed unnecessary instances of font-family (inherited from page) from multiple modifiers
+    Renamed form_state folder to follow BEM methodology
+    Changed btn-animate hover opacity to match spec (0.8)
+
+    JS:
+    In createCard function, moved card prepend action to end of generating code
+    Used newCard w/ querySelector instead of searching through document
+    Added querySelector to cloneNode to return desired HTML node instead of a doc-fragment
+    In imgOpen function, moved popup append action to end of generating code
+    Moved imgClose function outside of imgOpen function, no need for nesting
+    In imgClose function, made variable for picture node
+    Moved closeForm function before all invocations to avoid hoisting
+    
 
 #### Update Notes 4/30/2020 - Project 5, 1st Review
 
