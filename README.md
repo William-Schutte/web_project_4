@@ -35,6 +35,7 @@ This page is also available from my GitHub at the following link:
     Changed profile pic to <img> element
     Removed unnecessary </img> tag
     Gave attribute "type" to all buttons
+    Separated form into two individual forms (Edit and Add)
 
     CSS:
     Moved import locations of active/opened modifiers to removed cascading selector declarations
@@ -51,6 +52,7 @@ This page is also available from my GitHub at the following link:
     Moved imgClose function outside of imgOpen function, no need for nesting
     In imgClose function, made variable for picture node
     Moved closeForm function before all invocations to avoid hoisting
+    Refactored openForm function into two functions, one for each form to simplify code 
     
 
 #### Update Notes 4/30/2020 - Project 5, 1st Review

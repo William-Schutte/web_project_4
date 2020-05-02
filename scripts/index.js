@@ -2,25 +2,18 @@
 // Buttons
 const editBtn = document.querySelector('.profile__edit-button');
 const addBtn = document.querySelector('.profile__add-button');
-const formText = [
-    {
-        name: "Edit profile",
-        btnText: "Save"
-    },
-    {
-        name: "New place",
-        btnText: "Create"
-    }
-];
 
 // Edit Form Variables
-const form = document.querySelector('.form');
-const closeBtn = form.querySelector('.form__exit-button');
-const saveBtn = form.querySelector('.form__save-button');
-const formName = form.querySelector(".form__name");
-const formOccupation = form.querySelector(".form__occupation");
-const formPlace = form.querySelector(".form__place");
-const formUrl = form.querySelector(".form__url");
+const formEdit = document.querySelector('#form-edit');
+const formAdd = document.querySelector('#form-add');
+const closeBtnEdit = formEdit.querySelector('.form__exit-button');
+const saveBtnEdit = formEdit.querySelector('.form__save-button');
+const closeBtnAdd = formAdd.querySelector('.form__exit-button');
+const saveBtnAdd = formAdd.querySelector('.form__save-button');
+const formName = formEdit.querySelector(".form__name");
+const formOccupation = formEdit.querySelector(".form__occupation");
+const formPlace = formAdd.querySelector(".form__place");
+const formUrl = formAdd.querySelector(".form__url");
 
 const profileName = document.querySelector(".profile__name");
 const profileOccupation = document.querySelector(".profile__occupation");
@@ -123,40 +116,27 @@ function imgOpen(evt) {
 
 // ###########################  Form Open/Closing Functions  ######################################
 
-// Opens the form popup, depending on which button is pressed, changes text and visible input fields
-function openForm(formLabels) {
-    form.querySelector(".form__title").textContent = formLabels.name;
-    form.querySelector(".form__save-button").textContent = formLabels.btnText;
-    
-    // Logic for EDIT FORM and ADD FORM
-    // Uses one form block w/ all 4 fields but different fields are visible depending on the form opened
-    // This is why individual fields are made visible and opacity is not adjusted
-    if (formLabels["name"] === "Edit profile") {
-        formName.classList.add('form_opened');
-        formOccupation.classList.add('form_opened');
-        formName.setAttribute('value', profileName.textContent)
-        formOccupation.setAttribute('value', profileOccupation.textContent)
-    } else {
-        formPlace.classList.add('form_opened');
-        formUrl.classList.add('form_opened');
-        formPlace.setAttribute('placeholder', "Title");
-        formUrl.setAttribute('placeholder', "Image link");
-    }
+// Opens the form popup for editing profile info
+function openFormEdit() {
+    formName.setAttribute('value', profileName.textContent)
+    formOccupation.setAttribute('value', profileOccupation.textContent)
 
-    form.classList.toggle('form_opened');
+    formEdit.classList.toggle('form_opened');
 }
 
-// Function turns all fields off and closes form popup
-function closeForm() {
+function openFormAdd() {
+    formAdd.classList.toggle('form_opened');
+}
+
+// Function closes form popup
+function closeForm(evt) {
+    form = evt.target.parentElement.parentElement;
+
     form.classList.add('fade-out');
     
     // Timer used to allow time for fade-out animation
     setTimeout(function () {
         form.classList.toggle('form_opened');
-        formName.classList.remove('form_opened');
-        formOccupation.classList.remove('form_opened');
-        formPlace.classList.remove('form_opened');
-        formUrl.classList.remove('form_opened');
         form.classList.remove('fade-out');
     }, animationDelay);  
 }
@@ -164,9 +144,10 @@ function closeForm() {
 // Save Form function, works for both form types
 function saveForm(evt) {
     evt.preventDefault();
+    form = evt.target.parentElement.parentElement;
 
     // Logic for EDIT FORM and ADD FORM
-    if (form.querySelector(".form__title").textContent === "Edit profile") {
+    if (form.getAttribute("id") === "form-edit") {
         const nameInput = formName.value;
         const occInput = formOccupation.value;
         profileName.textContent = nameInput;
@@ -176,8 +157,8 @@ function saveForm(evt) {
             name: "",
             link: ""
         };
-        newCard['name'] = formPlace.value;
-        newCard['link'] = formUrl.value;
+        newCard.name = formPlace.value;
+        newCard.link = formUrl.value;
         
         createCard(newCard);
 
@@ -186,7 +167,7 @@ function saveForm(evt) {
         formUrl.value = "";
     }
 
-    closeForm();
+    closeForm(evt);
 }
 
 // ###########################  Initialization of Page  ###########################################
@@ -194,7 +175,10 @@ function saveForm(evt) {
 // Initialization of precoded cards (x6)
 initialCards.forEach(function (card) {createCard(card)});
 
-editBtn.addEventListener("click", () => openForm(formText[0]));
-addBtn.addEventListener("click", () => openForm(formText[1]));
-closeBtn.addEventListener("click", closeForm);
-saveBtn.addEventListener("click", saveForm);
+// Listeners for edit btn, add btn, and both btns on each form
+editBtn.addEventListener("click", openFormEdit);
+addBtn.addEventListener("click", openFormAdd);
+closeBtnEdit.addEventListener("click", closeForm);
+saveBtnEdit.addEventListener("click", saveForm);
+closeBtnAdd.addEventListener("click", closeForm);
+saveBtnAdd.addEventListener("click", saveForm);

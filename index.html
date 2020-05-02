@@ -44,14 +44,23 @@
     </main>
 
     <!-- Popup Edit Form -->
-    <section class="form">
+    <section class="form" id="form-edit">
         <div class="form__container">
-            <h2 class="form__title"></h2>
+            <h2 class="form__title">Edit profile</h2>
             <input class="form__name" type="text">
             <input class="form__occupation" type="text">
-            <input class="form__place" type="text">
-            <input class="form__url" type="text">
-            <button type="submit" class="form__save-button btn-animate"></button>
+            <button type="submit" class="form__save-button btn-animate">Save</button>
+            <button type="button" class="form__exit-button  btn-animate" type="button"></button>
+        </div>
+    </section>
+
+    <!-- Popup Add Form -->    
+    <section class="form" id="form-add">
+        <div class="form__container">
+            <h2 class="form__title">New place</h2>
+            <input class="form__place" type="text" placeholder="Title">
+            <input class="form__url" type="text" placeholder="Image link">
+            <button type="submit" class="form__save-button btn-animate">Create</button>
             <button type="button" class="form__exit-button  btn-animate" type="button"></button>
         </div>
     </section>
