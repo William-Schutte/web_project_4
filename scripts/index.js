@@ -72,7 +72,7 @@ function createCard(cardText) {
     const deleteButton = newCard.querySelector(".card__delete-button");
     deleteButton.addEventListener("click", deleteCard);
     const imgButton = newCard.querySelector(".card__image");
-    imgButton.addEventListener("click", imgOpen);
+    imgButton.addEventListener("click", openImgPopup);
 
     cardList.prepend(newCard);
 }
@@ -89,8 +89,8 @@ function deleteCard(evt) {
 
 // ###########################  Image Popup Function  #############################################
 
-// Function for closing image, nested in imgOpen due to event listener on created closeButton below
-function imgClose(evt) {
+// Function for closing image
+function closeImgPopup(evt) {
     const picPopup = evt.target.parentElement.parentElement;
     picPopup.classList.add("fade-out");
     setTimeout(function () {
@@ -99,7 +99,7 @@ function imgClose(evt) {
 }
 
 // Function that opens/creates image popup
-function imgOpen(evt) {
+function openImgPopup(evt) {
     const imgUrl = evt.target.getAttribute("src");
     const card = evt.target.closest(".card");
     const imgName = card.querySelector(".card__name").textContent;
@@ -109,7 +109,7 @@ function imgOpen(evt) {
     picturePopup.querySelector(".picture__title").textContent = imgName;
         
     const closeButton = picturePopup.querySelector(".picture__exit-button");
-    closeButton.addEventListener("click", imgClose);
+    closeButton.addEventListener("click", closeImgPopup);
     picturePopup.classList.add("fade-in");
     page.append(picturePopup);
 }
@@ -118,8 +118,8 @@ function imgOpen(evt) {
 
 // Opens the form popup for editing profile info
 function openFormEdit() {
-    formName.setAttribute('value', profileName.textContent)
-    formOccupation.setAttribute('value', profileOccupation.textContent)
+    formName.value = profileName.textContent;
+    formOccupation.value = profileOccupation.textContent;
 
     formEdit.classList.toggle('form_opened');
 }
@@ -138,6 +138,10 @@ function closeForm(evt) {
     setTimeout(function () {
         form.classList.toggle('form_opened');
         form.classList.remove('fade-out');
+        if (form.getAttribute("id") === "form-add") {
+            formPlace.value = "";
+            formUrl.value = "";
+        }
     }, animationDelay);  
 }
 

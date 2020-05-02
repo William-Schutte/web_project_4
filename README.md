@@ -27,6 +27,18 @@ This page is also available from my GitHub at the following link:
 ***https://william-schutte.github.io/web_project_4/***
 
 -----
+#### Update Notes 5/2/2020 - Project 5, 3rd Review
+
+##### Fixes:
+    HTML:
+    Removed </img> tags
+    Added alt attributes to profile pic
+
+    JS:
+    Changed function names to more typical: verbItem instead of itemVerb (imgOpen)
+    Instead of setAttribute("value"), used .value for form fields
+    Reset add form fields upon close so they don't reopen with text still present
+
 #### Update Notes 5/1/2020 - Project 5, 2nd Review
 
 ##### Fixes:
