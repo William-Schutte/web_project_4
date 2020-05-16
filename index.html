@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="./pages/index.css">
 </head>
 <!-- 
-    Practicum Web Project 4/30 - Coded by William Schutte
+    Practicum Web Project 5/15 - Coded by William Schutte
     Available at https://william-schutte.github.io/web_project_4/
     See update notes in README.md
  -->
@@ -44,26 +44,38 @@
     </main>
 
     <!-- Popup Edit Form -->
-    <section class="form" id="form-edit">
+    <form class="form" id="form-edit">
         <div class="form__container">
             <h2 class="form__title">Edit profile</h2>
-            <input class="form__name" type="text">
-            <input class="form__occupation" type="text">
+            <label class="form__input-field">
+                <input id="form-name" class="form__name form__input" type="text" placeholder="Name" required minlength="2" maxlength="40" pattern="[A-Za-z -]*">
+                <span id="form-name-error" class="form__error"></span>
+            </label>
+            <label class="form__input-field">
+                <input id="form-occupation" class="form__occupation form__input" type="text" required minlength="2" maxlength="200">
+                <span id="form-occupation-error" class="form__error"></span>
+            </label>
             <button type="submit" class="form__save-button btn-animate">Save</button>
             <button type="button" class="form__exit-button  btn-animate"></button>
         </div>
-    </section>
+    </form> 
 
     <!-- Popup Add Form -->    
-    <section class="form" id="form-add">
+    <form class="form" id="form-add">
         <div class="form__container">
             <h2 class="form__title">New place</h2>
-            <input class="form__place" type="text" placeholder="Title">
-            <input class="form__url" type="text" placeholder="Image link">
+            <label class="form__input-field">
+                <input id="form-place" class="form__place form__input" type="text" placeholder="Title" required minlength="1" maxlength="30">
+                <span id="form-place-error" class="form__error"></span>
+            </label>
+            <label class="form__input-field">
+                <input id="form-url" class="form__url form__input" type="url " placeholder="Image link" required>
+                <span id="form-url-error" class="form__error"></span>
+            </label>
             <button type="submit" class="form__save-button btn-animate">Create</button>
             <button type="button" class="form__exit-button  btn-animate"></button>
         </div>
-    </section>
+    </form>
 
     <!-- Template for Image Cards -->
     <template id="card-template">
@@ -90,5 +102,7 @@
     <!-- Script for popup Form -->
     <script src="./scripts/index.js"></script>
 
+    <!-- Script for Validation -->
+    <script src="./scripts/validate.js"></script>
 </body>
 </html>

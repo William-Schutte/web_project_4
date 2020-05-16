@@ -1,5 +1,6 @@
 .form__save-button {
     width: 100%;
+    margin-top: 12px;
     border-radius: 2px;
     font-weight: normal;
     font-size: 18px;

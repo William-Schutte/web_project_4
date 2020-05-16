@@ -1,9 +1,9 @@
-# Project 5: Around The U.S.
+# Project 6: Around The U.S.
 ## William Schutte, 2020
 Practicum by Yandex
 -----
 ### Overview
-This project represents work from the 4th and 5th projects for the web-dev course. This sprint is the first to include
+This project represents work from the 4th, 5th, and 6th projects for the web-dev course. This chapter is the first to include
 JavaScript, user interactivity, and communication between HTML, CSS, and JS. The project brief was provided on Figma, 
 an online collaborative interface prototyping tool. 
 
@@ -27,6 +27,13 @@ This page is also available from my GitHub at the following link:
 ***https://william-schutte.github.io/web_project_4/***
 
 -----
+#### Update Notes 5/15/2020 - Project 6, 1st Review
+
+##### Fixes:
+
+
+
+
 #### Update Notes 5/2/2020 - Project 5, 3rd Review
 
 ##### Fixes:
