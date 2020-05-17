@@ -1,18 +1,5 @@
 // ###########################  Validation  #######################################################
 
-// ###########################  Edit Profile Form Validation  #####################################
-// Both fields required, Name Field between 2 and 40 chars, About Field between 2 and 200 chars
-// Name field only letters, spaces, and hyphens
-// Use default error messages
-// Save button inactive until fields are valid
-
-// ###########################  New Place Form Validation  ########################################
-// Both fields required, Title Field between 1 and 30 chars
-// URL Field must contain a URL
-// Use default error messages
-// Save button inactive until fields are valid
-
-
 // Close the popup by clicking outside the form
 // Close the popup by pressing the Esc key
 

@@ -87,11 +87,13 @@ function deleteCard(evt) {
     evt.target.parentElement.remove();
 }
 
-// ###########################  Image Popup Function  #############################################
+// ###########################  Image Popup Functions  #############################################
 
 // Function for closing image
 function closeImgPopup(evt) {
-    const picPopup = evt.target.parentElement.parentElement;
+    const picPopup = document.querySelector(".picture");
+    document.removeEventListener("keyup", escClose);
+
     picPopup.classList.add("fade-out");
     setTimeout(function () {
         picPopup.remove();
@@ -107,30 +109,45 @@ function openImgPopup(evt) {
     picturePopup.querySelector(".picture__img").setAttribute("src", imgUrl);
     picturePopup.querySelector(".picture__img").setAttribute("alt", "Photo of " + imgName);
     picturePopup.querySelector(".picture__title").textContent = imgName;
-        
-    const closeButton = picturePopup.querySelector(".picture__exit-button");
-    closeButton.addEventListener("click", closeImgPopup);
+    
+    document.addEventListener("keyup", escClose);
+    picturePopup.addEventListener("click", function (evt) {
+        if (evt.target.classList.contains("picture__exit-button") || evt.target.classList.contains("picture")) {
+            closeImgPopup();
+        }
+    });
     picturePopup.classList.add("fade-in");
     page.append(picturePopup);
 }
 
 // ###########################  Form Open/Closing Functions  ######################################
 
+// Function for closing popups with Esc key
+function escClose(evt) {
+    if (evt.key === "Escape" && document.querySelector(".form_opened")) {
+        closeForm();
+    } else if (evt.key === "Escape") {
+        closeImgPopup();
+    }
+}
+
 // Opens the form popup for editing profile info
 function openFormEdit() {
     formName.value = profileName.textContent;
     formOccupation.value = profileOccupation.textContent;
-
+    document.addEventListener("keyup", escClose);
     formEdit.classList.toggle('form_opened');
 }
 
 function openFormAdd() {
+    document.addEventListener("keyup", escClose);
     formAdd.classList.toggle('form_opened');
 }
 
 // Function closes form popup
-function closeForm(evt) {
-    form = evt.target.parentElement.parentElement;
+function closeForm() {
+    form = document.querySelector(".form_opened");
+    document.removeEventListener("keyup", escClose);
 
     form.classList.add('fade-out');
     
@@ -147,8 +164,8 @@ function closeForm(evt) {
 
 // Save Form function, works for both form types
 function saveForm(evt) {
-    evt.preventDefault();
-    form = evt.target.parentElement.parentElement;
+    //evt.preventDefault();
+    form = document.querySelector(".form_opened");
 
     // Logic for EDIT FORM and ADD FORM
     if (form.getAttribute("id") === "form-edit") {
@@ -171,7 +188,7 @@ function saveForm(evt) {
         formUrl.value = "";
     }
 
-    closeForm(evt);
+    closeForm();
 }
 
 // ###########################  Initialization of Page  ###########################################
@@ -179,10 +196,26 @@ function saveForm(evt) {
 // Initialization of precoded cards (x6)
 initialCards.forEach(function (card) {createCard(card)});
 
-// Listeners for edit btn, add btn, and both btns on each form
+// Listeners for edit btn, add btn, and both forms
 editBtn.addEventListener("click", openFormEdit);
 addBtn.addEventListener("click", openFormAdd);
-closeBtnEdit.addEventListener("click", closeForm);
-saveBtnEdit.addEventListener("click", saveForm);
-closeBtnAdd.addEventListener("click", closeForm);
-saveBtnAdd.addEventListener("click", saveForm);
+
+formEdit.addEventListener("click", function (evt) {
+    evt.stopPropagation();
+    if (evt.target.classList.contains("form") || evt.target.classList.contains("form__exit-button")) {
+        closeForm();
+    } else if (evt.target.classList.contains("form__save-button")) {
+        saveForm();
+    }
+});
+
+formAdd.addEventListener("click", function (evt) {
+    evt.stopPropagation();
+    if (evt.target.classList.contains("form") || evt.target.classList.contains("form__exit-button")) {
+        closeForm();
+    } else if (evt.target.classList.contains("form__save-button")) {
+        saveForm();
+    }
+});
+
+page.addEventListener
