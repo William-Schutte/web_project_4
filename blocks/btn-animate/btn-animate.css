@@ -2,7 +2,7 @@
     transition: opacity .2s linear;
 }
 
-.btn-animate:hover {
+.btn-animate:not(.form__save-button_disabled):hover {
     opacity: .8;
     cursor: pointer;
 }

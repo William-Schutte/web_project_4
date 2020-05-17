@@ -1,11 +1,5 @@
 // ###########################  Validation  #######################################################
 
-// Close the popup by clicking outside the form
-// Close the popup by pressing the Esc key
-
-// enabling validation by calling enableValidation()
-// pass all the settings on call
-
 const settingsObject = {
     formSelector: ".form",
     inputSelector: ".form__input",
@@ -49,39 +43,34 @@ function toggleButtonState(inputs, submitButton, settings) {
     if (isValid) {
         submitButton.classList.remove(settings.inactiveButtonClass);
         submitButton.removeAttribute("disabled");
-        submitButton.classList.add("btn-animate");
     } else {
         submitButton.classList.add(settings.inactiveButtonClass);
         submitButton.setAttribute("disabled", " ");
-        submitButton.classList.remove("btn-animate");
     }
 }
 
-function enableValidation(settings) {
+function enableValidation({formSelector, inputSelector, submitButtonSelector, ...rest}) {
     // List of all (both) forms
-    const formList = Array.from(document.querySelectorAll(settings.formSelector));
+    const formList = Array.from(document.querySelectorAll(formSelector));
     // Prevent default submit button event
-    formList.forEach((form) => {
+    formList.forEach(function (form) {
         form.addEventListener("submit", function (evt) {
             evt.preventDefault();
         });
 
         // All inputs in the form
-        const inputs = Array.from(form.querySelectorAll(settings.inputSelector));
+        const inputs = Array.from(form.querySelectorAll(inputSelector));
         // Form submit button
-        const submitButton = form.querySelector(settings.submitButtonSelector);
+        const submitButton = form.querySelector(submitButtonSelector);
 
         // For each input field
-        inputs.forEach((input) => {
-            input.addEventListener("input", () => {
-                checkInputValidity(form, input, settings);
-                toggleButtonState(inputs, submitButton, settings);
+        inputs.forEach(function (input) {
+            input.addEventListener("input", function (evt) {
+                checkInputValidity(form, input, rest);
+                toggleButtonState(inputs, submitButton, rest);
             })
         })
     });
 }
 
-
-
 enableValidation(settingsObject);
-console.log("hello");

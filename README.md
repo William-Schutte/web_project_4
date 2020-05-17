@@ -7,6 +7,8 @@ This project represents work from the 4th, 5th, and 6th projects for the web-dev
 JavaScript, user interactivity, and communication between HTML, CSS, and JS. The project brief was provided on Figma, 
 an online collaborative interface prototyping tool. 
 
+This adaptive page includes form validation, interactive popups, fade-in and fade-out animations, and functional like and delete buttons.
+
 ### Techniques
 This page features a responsive design, editable content, multiple popup elements, editable form fields, and transition
 animations.
@@ -27,12 +29,23 @@ This page is also available from my GitHub at the following link:
 ***https://william-schutte.github.io/web_project_4/***
 
 -----
-#### Update Notes 5/15/2020 - Project 6, 1st Review
+#### Update Notes 5/17/2020 - Project 6, 1st Review
 
 ##### Fixes:
+    JS:
+    Removed unused test script file
+    Index: Removed unused variables (from previous versions)
+    Index: Restructured functions with variable declarations first
+    Index: Forgot to use const when declaring form variable in closeForm() and saveForm()
+    Index: Changed closeForm() function to reset addForm submit button to inactive for next opening
+    Validate: Reduced size of the settingsObject passed through functions
+    Validate: Removed btn-animate class toggle in toggleButtonState function
 
+    HTML:
+    Made submit button default to inactive for add form 
 
-
+    CSS:
+    Adjusted btn-animate class to only be active when button is active (removed classList toggle in JS)
 
 #### Update Notes 5/2/2020 - Project 5, 3rd Review
 

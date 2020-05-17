@@ -3,21 +3,15 @@
 const editBtn = document.querySelector('.profile__edit-button');
 const addBtn = document.querySelector('.profile__add-button');
 
-// Edit Form Variables
+// Form Variables
 const formEdit = document.querySelector('#form-edit');
 const formAdd = document.querySelector('#form-add');
-const closeBtnEdit = formEdit.querySelector('.form__exit-button');
-const saveBtnEdit = formEdit.querySelector('.form__save-button');
-const closeBtnAdd = formAdd.querySelector('.form__exit-button');
-const saveBtnAdd = formAdd.querySelector('.form__save-button');
 const formName = formEdit.querySelector(".form__name");
 const formOccupation = formEdit.querySelector(".form__occupation");
 const formPlace = formAdd.querySelector(".form__place");
 const formUrl = formAdd.querySelector(".form__url");
-
 const profileName = document.querySelector(".profile__name");
 const profileOccupation = document.querySelector(".profile__occupation");
-
 
 // Image Cards Variables
 const cardList = document.querySelector(".cards__container");
@@ -62,16 +56,16 @@ function createCard(cardText) {
     const newCard = cardTemplate.content.cloneNode(true);
     const nameString = cardText.name;
     const imgString =  cardText.link;
+    const favButton = newCard.querySelector(".card__fav-button");
+    const deleteButton = newCard.querySelector(".card__delete-button");
+    const imgButton = newCard.querySelector(".card__image");
     newCard.querySelector(".card__name").textContent = nameString;
     newCard.querySelector(".card__image").setAttribute('src', imgString);
     newCard.querySelector(".card__image").setAttribute('alt', "Photo of " + nameString);
 
     // Adds event listener to each card's fav button, delete button, and img
-    const favButton = newCard.querySelector(".card__fav-button");
     favButton.addEventListener("click", favToggle);
-    const deleteButton = newCard.querySelector(".card__delete-button");
     deleteButton.addEventListener("click", deleteCard);
-    const imgButton = newCard.querySelector(".card__image");
     imgButton.addEventListener("click", openImgPopup);
 
     cardList.prepend(newCard);
@@ -146,7 +140,7 @@ function openFormAdd() {
 
 // Function closes form popup
 function closeForm() {
-    form = document.querySelector(".form_opened");
+    const form = document.querySelector(".form_opened");
     document.removeEventListener("keyup", escClose);
 
     form.classList.add('fade-out');
@@ -158,6 +152,9 @@ function closeForm() {
         if (form.getAttribute("id") === "form-add") {
             formPlace.value = "";
             formUrl.value = "";
+            const submitButton = form.querySelector(".form__save-button");
+            submitButton.setAttribute("disabled", " ");
+            submitButton.classList.add("form__save-button_disabled");
         }
     }, animationDelay);  
 }
@@ -165,7 +162,7 @@ function closeForm() {
 // Save Form function, works for both form types
 function saveForm(evt) {
     //evt.preventDefault();
-    form = document.querySelector(".form_opened");
+    const form = document.querySelector(".form_opened");
 
     // Logic for EDIT FORM and ADD FORM
     if (form.getAttribute("id") === "form-edit") {
@@ -217,5 +214,3 @@ formAdd.addEventListener("click", function (evt) {
         saveForm();
     }
 });
-
-page.addEventListener
