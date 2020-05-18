@@ -29,6 +29,13 @@ This page is also available from my GitHub at the following link:
 ***https://william-schutte.github.io/web_project_4/***
 
 -----
+#### Update Notes 5/18/2020 - Project 6, 1st Review
+
+##### Fixes:
+    JS: 
+    Made a formListeners() function to reduce duplicated code
+    Changed  classlist.toggle to .add or .remove so that popups could not be closed and reopened with doubleclick
+
 #### Update Notes 5/17/2020 - Project 6, 1st Review
 
 ##### Fixes:

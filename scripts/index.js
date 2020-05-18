@@ -130,12 +130,12 @@ function openFormEdit() {
     formName.value = profileName.textContent;
     formOccupation.value = profileOccupation.textContent;
     document.addEventListener("keyup", escClose);
-    formEdit.classList.toggle('form_opened');
+    formEdit.classList.add('form_opened');
 }
 
 function openFormAdd() {
     document.addEventListener("keyup", escClose);
-    formAdd.classList.toggle('form_opened');
+    formAdd.classList.add('form_opened');
 }
 
 // Function closes form popup
@@ -147,7 +147,7 @@ function closeForm() {
     
     // Timer used to allow time for fade-out animation
     setTimeout(function () {
-        form.classList.toggle('form_opened');
+        form.classList.remove('form_opened');
         form.classList.remove('fade-out');
         if (form.getAttribute("id") === "form-add") {
             formPlace.value = "";
@@ -188,6 +188,16 @@ function saveForm(evt) {
     closeForm();
 }
 
+// Creates listeners for closing and saving forms
+function formListeners(evt) {
+    evt.stopPropagation();
+    if (evt.target.classList.contains("form") || evt.target.classList.contains("form__exit-button")) {
+        closeForm();
+    } else if (evt.target.classList.contains("form__save-button")) {
+        saveForm();
+    }
+}
+
 // ###########################  Initialization of Page  ###########################################
 
 // Initialization of precoded cards (x6)
@@ -197,20 +207,5 @@ initialCards.forEach(function (card) {createCard(card)});
 editBtn.addEventListener("click", openFormEdit);
 addBtn.addEventListener("click", openFormAdd);
 
-formEdit.addEventListener("click", function (evt) {
-    evt.stopPropagation();
-    if (evt.target.classList.contains("form") || evt.target.classList.contains("form__exit-button")) {
-        closeForm();
-    } else if (evt.target.classList.contains("form__save-button")) {
-        saveForm();
-    }
-});
-
-formAdd.addEventListener("click", function (evt) {
-    evt.stopPropagation();
-    if (evt.target.classList.contains("form") || evt.target.classList.contains("form__exit-button")) {
-        closeForm();
-    } else if (evt.target.classList.contains("form__save-button")) {
-        saveForm();
-    }
-});
+formEdit.addEventListener("click", formListeners);
+formAdd.addEventListener("click", formListeners);
