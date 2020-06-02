@@ -15,7 +15,6 @@ const profileOccupation = document.querySelector(".profile__occupation");
 
 // Image Cards Variables
 const cardList = document.querySelector(".cards__container");
-const cardTemplate = document.querySelector("#card-template");
 const pictureTemplate = document.querySelector("#picture-popup-template");
 const page = document.querySelector(".content");
 const initialCards = [
@@ -48,38 +47,7 @@ const initialCards = [
 // Variable for delay functions, used to time closing of popups w/ CSS animation time
 const animationDelay = 400;
 
-
-// ###########################  Card Creation Functions  ##########################################
-
-// Function for adding new cards, also used to set initial cards
-function createCard(cardText) {
-    const newCard = cardTemplate.content.cloneNode(true);
-    const nameString = cardText.name;
-    const imgString =  cardText.link;
-    const favButton = newCard.querySelector(".card__fav-button");
-    const deleteButton = newCard.querySelector(".card__delete-button");
-    const imgButton = newCard.querySelector(".card__image");
-    newCard.querySelector(".card__name").textContent = nameString;
-    newCard.querySelector(".card__image").setAttribute('src', imgString);
-    newCard.querySelector(".card__image").setAttribute('alt', "Photo of " + nameString);
-
-    // Adds event listener to each card's fav button, delete button, and img
-    favButton.addEventListener("click", favToggle);
-    deleteButton.addEventListener("click", deleteCard);
-    imgButton.addEventListener("click", openImgPopup);
-
-    cardList.prepend(newCard);
-}
-
-// Favorite button toggle function
-function favToggle(evt) {
-    evt.target.classList.toggle("card__fav-button_active");
-}
-
-// Delete card function
-function deleteCard(evt) {
-    evt.target.parentElement.remove();
-}
+import { Card } from "./card.js";
 
 // ###########################  Image Popup Functions  #############################################
 
@@ -178,7 +146,10 @@ function saveForm(evt) {
         newCard.name = formPlace.value;
         newCard.link = formUrl.value;
         
-        createCard(newCard);
+        // Creates new Card object and adds the element to the DOM
+        const card = new Card(newCard, "#card-template");
+        const cardElem = card.generateCard();
+        cardList.prepend(cardElem);
 
         // Reset fields for next open
         formPlace.value = "";
@@ -201,7 +172,11 @@ function formListeners(evt) {
 // ###########################  Initialization of Page  ###########################################
 
 // Initialization of precoded cards (x6)
-initialCards.forEach(function (card) {createCard(card)});
+initialCards.forEach(function (itm) {
+    const card = new Card(itm, "#card-template");
+    const cardElem = card.generateCard();
+    cardList.prepend(cardElem);
+});
 
 // Listeners for edit btn, add btn, and both forms
 editBtn.addEventListener("click", openFormEdit);
@@ -209,3 +184,13 @@ addBtn.addEventListener("click", openFormAdd);
 
 formEdit.addEventListener("click", formListeners);
 formAdd.addEventListener("click", formListeners);
+
+// Listener for image popup
+page.addEventListener("click", function (evt) {
+    if (evt.target.classList.contains("card__image")) {
+        openImgPopup(evt);
+    }
+});
+
+// Export animationDelay time for use in Card.js
+export {animationDelay};

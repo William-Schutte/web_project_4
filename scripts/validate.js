@@ -1,4 +1,4 @@
-// ###########################  Validation  #######################################################
+// ###########################  Settings  #########################################################
 
 const settingsObject = {
     formSelector: ".form",
@@ -8,6 +8,17 @@ const settingsObject = {
     inputErrorClass: "form__input_error",
     errorClass: "form__error_visible"
 };
+
+// ###########################  Form Validator Class  #############################################
+
+class FormValidator {
+    constructor(settings, formElement) {
+        this.settings = settings;
+        this.formElement = formElement;
+    }
+
+    
+}
 
 // Function shows error message below input field
 function showErrorMessage(form, input, settings) {
@@ -27,7 +38,7 @@ function hideErrorMessage(form, input, settings) {
     input.classList.remove(settings.inputErrorClass);
 }
 
-// Function checks individual input field validity
+// Function checks individual input field validity                              *****
 function checkInputValidity(form, input, settings) {
     if (input.validity.valid) {
         hideErrorMessage(form, input, settings);
@@ -36,7 +47,7 @@ function checkInputValidity(form, input, settings) {
     }
 }
 
-// Function toggles the button state depending on input validity
+// Function toggles the button state depending on input validity                *****
 function toggleButtonState(inputs, submitButton, settings) {
     const isValid = inputs.every((input) => input.validity.valid);
 
