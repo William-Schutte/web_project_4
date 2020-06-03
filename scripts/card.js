@@ -1,5 +1,4 @@
 // ###########################  Card Class  #######################################################
-import {animationDelay} from "./index.js";
 
 class Card {
     constructor(newCard, templateSelect) {

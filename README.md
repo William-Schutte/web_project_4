@@ -1,19 +1,25 @@
-# Project 6: Around The U.S.
+# Project 7: Around The U.S.
 ## William Schutte, 2020
 Practicum by Yandex
 -----
 ### Overview
-This project represents work from the 4th, 5th, and 6th projects for the web-dev course. This chapter is the first to include
+This project represents work from the 4th through 7th projects for the web-dev course. This chapter is the first to include
 JavaScript, user interactivity, and communication between HTML, CSS, and JS. The project brief was provided on Figma, 
 an online collaborative interface prototyping tool. 
 
-This adaptive page includes form validation, interactive popups, fade-in and fade-out animations, and functional like and delete buttons.
+This adaptive page includes form validation, interactive popups, fade-in and fade-out animations, functional like and delete buttons,
+modular JavaScript, and Object Oriented JS design.
+
+    Project 7: OOP and Modular JS, Card and FormValidator classes/objects
+    Project 6: Real time, client-side form validation
+    Project 5: JS functions to add, load, like, delete, and open full image on all cards
+    Project 4: Layout, Design, and JS Popup Functionality
 
 ### Techniques
 This page features a responsive design, editable content, multiple popup elements, editable form fields, and transition
 animations.
 Development followed best practices for Git commits, branching, and merging.
-Internally, the site is designed under BEM methodology, including nested file structure. 
+Internally, the site is designed under BEM methodology, including nested file structure and modular JS.
 
 ### Technologies
 Visual Studio Code
@@ -29,6 +35,10 @@ This page is also available from my GitHub at the following link:
 ***https://william-schutte.github.io/web_project_4/***
 
 -----
+#### Update Notes 6/3/2020 - Project 7, 1st Review
+
+##### Fixes:
+
 #### Update Notes 5/18/2020 - Project 6, 1st Review
 
 ##### Fixes:

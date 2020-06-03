@@ -4,6 +4,7 @@ const editBtn = document.querySelector('.profile__edit-button');
 const addBtn = document.querySelector('.profile__add-button');
 
 // Form Variables
+const formList = Array.from(document.querySelectorAll(".form"));
 const formEdit = document.querySelector('#form-edit');
 const formAdd = document.querySelector('#form-add');
 const formName = formEdit.querySelector(".form__name");
@@ -12,6 +13,16 @@ const formPlace = formAdd.querySelector(".form__place");
 const formUrl = formAdd.querySelector(".form__url");
 const profileName = document.querySelector(".profile__name");
 const profileOccupation = document.querySelector(".profile__occupation");
+
+// Settings object for form validation
+const settingsObject = {
+    formSelector: ".form",
+    inputSelector: ".form__input",
+    submitButtonSelector: ".form__save-button",
+    inactiveButtonClass: "form__save-button_disabled",
+    inputErrorClass: "form__input_error",
+    errorClass: "form__error_visible"
+};
 
 // Image Cards Variables
 const cardList = document.querySelector(".cards__container");
@@ -47,7 +58,9 @@ const initialCards = [
 // Variable for delay functions, used to time closing of popups w/ CSS animation time
 const animationDelay = 400;
 
-import { Card } from "./card.js";
+// Imports of Classes
+import { Card } from "./Card.js";
+import { FormValidator } from "./FormValidator.js";
 
 // ###########################  Image Popup Functions  #############################################
 
@@ -129,7 +142,7 @@ function closeForm() {
 
 // Save Form function, works for both form types
 function saveForm(evt) {
-    //evt.preventDefault();
+    evt.preventDefault();
     const form = document.querySelector(".form_opened");
 
     // Logic for EDIT FORM and ADD FORM
@@ -165,7 +178,7 @@ function formListeners(evt) {
     if (evt.target.classList.contains("form") || evt.target.classList.contains("form__exit-button")) {
         closeForm();
     } else if (evt.target.classList.contains("form__save-button")) {
-        saveForm();
+        saveForm(evt);
     }
 }
 
@@ -192,5 +205,8 @@ page.addEventListener("click", function (evt) {
     }
 });
 
-// Export animationDelay time for use in Card.js
-export {animationDelay};
+// From Validation objects
+formList.forEach(function (form) {
+    const formValidator = new FormValidator(settingsObject, form);
+    formValidator.enableValidation();
+});
