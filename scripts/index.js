@@ -59,7 +59,7 @@ const initialCards = [
 const animationDelay = 400;
 
 // Imports of Classes
-import { Card } from "./Card.js";
+import { Card } from "./card.js";
 import { FormValidator } from "./FormValidator.js";
 
 // ###########################  Image Popup Functions  #############################################
