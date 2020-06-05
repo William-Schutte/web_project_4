@@ -6,7 +6,7 @@
     line-height: 0;
     border: none;
     background: none;
-    background-image: url(../../../images/heart-icon.svg);
+    background-image: url('../../../images/heart-icon.svg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: auto;
@@ -15,5 +15,5 @@
 }
 
 .card__fav-button:hover {
-    opacity: 0.6;
+    opacity: .6;
 }

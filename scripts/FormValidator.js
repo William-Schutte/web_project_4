@@ -47,23 +47,22 @@ class FormValidator {
     }
 
     enableValidation() {
+        this.formElement.addEventListener("submit", (evt) => {
+            evt.preventDefault();
+        });
+    
+        // All inputs in the form
+        this._inputs = Array.from(this.formElement.querySelectorAll(this.settings.inputSelector));
+        // Form submit button
+        this._submitButton = this.formElement.querySelector(this.settings.submitButtonSelector);   
         
-            this.formElement.addEventListener("submit", function (evt) {
-                evt.preventDefault();
+        // For each input field
+        this._inputs.forEach((input) => {
+            input.addEventListener("input", () => {
+                this._checkInputValidity(input);
+                this._toggleButtonState();
             });
-    
-            // All inputs in the form
-            this._inputs = Array.from(this.formElement.querySelectorAll(this.settings.inputSelector));
-            // Form submit button
-            this._submitButton = this.formElement.querySelector(this.settings.submitButtonSelector);
-    
-            // For each input field
-            this._inputs.forEach((input) => {
-                input.addEventListener("input", () => {
-                    this._checkInputValidity(input);
-                    this._toggleButtonState();
-                });
-            });
+        });
     }
 }
 

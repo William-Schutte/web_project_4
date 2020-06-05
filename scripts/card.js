@@ -30,7 +30,6 @@ class Card {
 
     _escClose(evt) {
         if (evt.key === "Escape") {
-            console.log(this);
             this._closeImgPopup();
         }
     }
@@ -41,7 +40,7 @@ class Card {
 
         this._element.querySelector(".card__name").textContent = this.name;
         this._element.querySelector(".card__image").setAttribute('src', this.link);
-        this._element.querySelector(".card__image").setAttribute('alt', "Photo of " + this.name);
+        this._element.querySelector(".card__image").setAttribute('alt', `Photo of ${this.name}`);
     
         return this._element;
     }

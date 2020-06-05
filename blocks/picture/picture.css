@@ -1,7 +1,7 @@
-@import url(./__column/picture__column.css);
-@import url(./__exit-button/picture__exit-button.css);
-@import url(./__img/picture__img.css);
-@import url(./__title/picture__title.css);
+@import url('./__column/picture__column.css');
+@import url('./__exit-button/picture__exit-button.css');
+@import url('./__img/picture__img.css');
+@import url('./__title/picture__title.css');
 
 .picture {
     display: flex;

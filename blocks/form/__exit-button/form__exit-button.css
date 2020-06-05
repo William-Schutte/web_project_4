@@ -9,7 +9,7 @@
     margin: 0;
     width: 58px;
     height: 58px;
-    background-image: url(../../../images/exit-icon.svg);
+    background-image: url('../../../images/exit-icon.svg');
 }
 
 @media screen and (max-width: 600px) {

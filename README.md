@@ -35,9 +35,21 @@ This page is also available from my GitHub at the following link:
 ***https://william-schutte.github.io/web_project_4/***
 
 -----
-#### Update Notes 6/3/2020 - Project 7, 1st Review
+#### Update Notes 6/5/2020 - Project 7, 1st Review
 
 ##### Fixes:
+    JS:
+    Changed callback to arrow functions in event listeners
+    Moved module imports to top of index.js
+    Removed unused evt variable pass from closeImgPopup function
+    Moved functions before calls to avoid hoisting
+    Used template literals for strings containing variables
+    Refactored popup close functions to not need timeout functions
+        Used event listeners for evt "animationend"
+
+    CSS:
+    Put all @import url() urls in single quotes
+    Removed leading zeros from decimal values
 
 #### Update Notes 5/18/2020 - Project 6, 1st Review
 

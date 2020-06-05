@@ -1,4 +1,9 @@
 // ###########################  Global Variable Declarations  #####################################
+
+// Imports of Classes
+import { Card } from "./card.js";
+import { FormValidator } from "./FormValidator.js";
+
 // Buttons
 const editBtn = document.querySelector('.profile__edit-button');
 const addBtn = document.querySelector('.profile__add-button');
@@ -56,33 +61,52 @@ const initialCards = [
 ];
 
 // Variable for delay functions, used to time closing of popups w/ CSS animation time
-const animationDelay = 400;
-
-// Imports of Classes
-import { Card } from "./card.js";
-import { FormValidator } from "./FormValidator.js";
+const animationDelay = 0;
 
 // ###########################  Image Popup Functions  #############################################
 
 // Function for closing image
-function closeImgPopup(evt) {
+function closeImgPopup() {
     const picPopup = document.querySelector(".picture");
     document.removeEventListener("keyup", escClose);
-
     picPopup.classList.add("fade-out");
-    setTimeout(function () {
-        picPopup.remove();
-    }, animationDelay);
+}
+
+// Function closes form popup
+function closeForm(form) {
+    form.classList.remove('form_opened');
+    form.classList.remove('fade-out');
+    form.removeEventListener("animationend", () => closeForm(form));
+    if (form.getAttribute("id") === "form-add") {
+        formPlace.value = "";
+        formUrl.value = "";
+        const submitButton = form.querySelector(".form__save-button");
+        submitButton.setAttribute("disabled", " ");
+        submitButton.classList.add("form__save-button_disabled");
+    }
+}
+
+// Function for closing popups with Esc key
+function escClose(evt) {
+    if (evt.key === "Escape" && document.querySelector(".form_opened")) {
+        let form = document.querySelector(".form_opened");
+        document.removeEventListener("keyup", escClose);
+        form.classList.add('fade-out');
+        form.addEventListener("animationend", () => closeForm(form));
+    } else if (evt.key === "Escape") {
+        closeImgPopup();
+    }
 }
 
 // Function that opens/creates image popup
 function openImgPopup(evt) {
+    
     const imgUrl = evt.target.getAttribute("src");
     const card = evt.target.closest(".card");
     const imgName = card.querySelector(".card__name").textContent;
     const picturePopup = pictureTemplate.content.cloneNode(true).querySelector(".picture");
     picturePopup.querySelector(".picture__img").setAttribute("src", imgUrl);
-    picturePopup.querySelector(".picture__img").setAttribute("alt", "Photo of " + imgName);
+    picturePopup.querySelector(".picture__img").setAttribute("alt", `Photo of ${imgName}`);
     picturePopup.querySelector(".picture__title").textContent = imgName;
     
     document.addEventListener("keyup", escClose);
@@ -91,20 +115,17 @@ function openImgPopup(evt) {
             closeImgPopup();
         }
     });
+    picturePopup.addEventListener("animationend", function (evt) {
+        if (evt.animationName === 'fadeOut') {
+            picturePopup.classList.toggle("cool");
+            picturePopup.remove();
+        }
+    });
     picturePopup.classList.add("fade-in");
     page.append(picturePopup);
 }
 
 // ###########################  Form Open/Closing Functions  ######################################
-
-// Function for closing popups with Esc key
-function escClose(evt) {
-    if (evt.key === "Escape" && document.querySelector(".form_opened")) {
-        closeForm();
-    } else if (evt.key === "Escape") {
-        closeImgPopup();
-    }
-}
 
 // Opens the form popup for editing profile info
 function openFormEdit() {
@@ -114,36 +135,16 @@ function openFormEdit() {
     formEdit.classList.add('form_opened');
 }
 
+// Opens the form popup for adding cards
 function openFormAdd() {
     document.addEventListener("keyup", escClose);
     formAdd.classList.add('form_opened');
 }
 
-// Function closes form popup
-function closeForm() {
-    const form = document.querySelector(".form_opened");
-    document.removeEventListener("keyup", escClose);
-
-    form.classList.add('fade-out');
-    
-    // Timer used to allow time for fade-out animation
-    setTimeout(function () {
-        form.classList.remove('form_opened');
-        form.classList.remove('fade-out');
-        if (form.getAttribute("id") === "form-add") {
-            formPlace.value = "";
-            formUrl.value = "";
-            const submitButton = form.querySelector(".form__save-button");
-            submitButton.setAttribute("disabled", " ");
-            submitButton.classList.add("form__save-button_disabled");
-        }
-    }, animationDelay);  
-}
-
 // Save Form function, works for both form types
 function saveForm(evt) {
     evt.preventDefault();
-    const form = document.querySelector(".form_opened");
+    let form = document.querySelector(".form_opened");
 
     // Logic for EDIT FORM and ADD FORM
     if (form.getAttribute("id") === "form-edit") {
@@ -169,14 +170,17 @@ function saveForm(evt) {
         formUrl.value = "";
     }
 
-    closeForm();
+    document.removeEventListener("keyup", escClose);
+    form.classList.add('fade-out');
 }
 
 // Creates listeners for closing and saving forms
 function formListeners(evt) {
     evt.stopPropagation();
     if (evt.target.classList.contains("form") || evt.target.classList.contains("form__exit-button")) {
-        closeForm();
+        let form = document.querySelector(".form_opened");
+        document.removeEventListener("keyup", escClose);
+        form.classList.add('fade-out');
     } else if (evt.target.classList.contains("form__save-button")) {
         saveForm(evt);
     }
@@ -185,7 +189,7 @@ function formListeners(evt) {
 // ###########################  Initialization of Page  ###########################################
 
 // Initialization of precoded cards (x6)
-initialCards.forEach(function (itm) {
+initialCards.forEach((itm) => {
     const card = new Card(itm, "#card-template");
     const cardElem = card.generateCard();
     cardList.prepend(cardElem);
@@ -196,7 +200,14 @@ editBtn.addEventListener("click", openFormEdit);
 addBtn.addEventListener("click", openFormAdd);
 
 formEdit.addEventListener("click", formListeners);
+formEdit.addEventListener("animationend", function (evt) {
+    if (evt.animationName === 'fadeOut') {closeForm(formEdit)}
+});
+
 formAdd.addEventListener("click", formListeners);
+formAdd.addEventListener("animationend", function (evt) {
+    if (evt.animationName === 'fadeOut') {closeForm(formAdd)}
+});
 
 // Listener for image popup
 page.addEventListener("click", function (evt) {
@@ -206,7 +217,7 @@ page.addEventListener("click", function (evt) {
 });
 
 // From Validation objects
-formList.forEach(function (form) {
+formList.forEach((form) => {
     const formValidator = new FormValidator(settingsObject, form);
     formValidator.enableValidation();
 });
