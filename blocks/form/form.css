@@ -22,5 +22,5 @@
     display: block;
     visibility: hidden;
     opacity: 0;
-    transition: visibility 0s linear, opacity .4s ease;
+    /* transition: visibility 0s linear, opacity .4s ease; */
 }

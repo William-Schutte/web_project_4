@@ -31,8 +31,6 @@ const settingsObject = {
 
 // Image Cards Variables
 const cardList = document.querySelector(".cards__container");
-const pictureTemplate = document.querySelector("#picture-popup-template");
-const page = document.querySelector(".content");
 const initialCards = [
     {
         name: "Amsterdam",
@@ -60,23 +58,12 @@ const initialCards = [
     }
 ];
 
-// Variable for delay functions, used to time closing of popups w/ CSS animation time
-const animationDelay = 0;
-
-// ###########################  Image Popup Functions  #############################################
-
-// Function for closing image
-function closeImgPopup() {
-    const picPopup = document.querySelector(".picture");
-    document.removeEventListener("keyup", escClose);
-    picPopup.classList.add("fade-out");
-}
+// ###########################  Close Functions  ##################################################
 
 // Function closes form popup
 function closeForm(form) {
-    form.classList.remove('form_opened');
-    form.classList.remove('fade-out');
-    form.removeEventListener("animationend", () => closeForm(form));
+    form.classList.add('fade-out');
+    form.classList.remove('form_opened', 'fade-in');
     if (form.getAttribute("id") === "form-add") {
         formPlace.value = "";
         formUrl.value = "";
@@ -86,104 +73,66 @@ function closeForm(form) {
     }
 }
 
+
 // Function for closing popups with Esc key
 function escClose(evt) {
-    if (evt.key === "Escape" && document.querySelector(".form_opened")) {
-        let form = document.querySelector(".form_opened");
-        document.removeEventListener("keyup", escClose);
-        form.classList.add('fade-out');
-        form.addEventListener("animationend", () => closeForm(form));
-    } else if (evt.key === "Escape") {
-        closeImgPopup();
+    if (evt.key === "Escape") {
+        if (document.querySelector(".form_opened")) {
+            closeForm(document.querySelector(".form_opened"));
+        } else {
+            document.querySelector(".picture").classList.remove("fade-in");
+            document.querySelector(".picture").classList.add("fade-out");
+        }
     }
 }
 
-// Function that opens/creates image popup
-function openImgPopup(evt) {
-    
-    const imgUrl = evt.target.getAttribute("src");
-    const card = evt.target.closest(".card");
-    const imgName = card.querySelector(".card__name").textContent;
-    const picturePopup = pictureTemplate.content.cloneNode(true).querySelector(".picture");
-    picturePopup.querySelector(".picture__img").setAttribute("src", imgUrl);
-    picturePopup.querySelector(".picture__img").setAttribute("alt", `Photo of ${imgName}`);
-    picturePopup.querySelector(".picture__title").textContent = imgName;
-    
-    document.addEventListener("keyup", escClose);
-    picturePopup.addEventListener("click", function (evt) {
-        if (evt.target.classList.contains("picture__exit-button") || evt.target.classList.contains("picture")) {
-            closeImgPopup();
-        }
-    });
-    picturePopup.addEventListener("animationend", function (evt) {
-        if (evt.animationName === 'fadeOut') {
-            picturePopup.classList.toggle("cool");
-            picturePopup.remove();
-        }
-    });
-    picturePopup.classList.add("fade-in");
-    page.append(picturePopup);
-}
-
-// ###########################  Form Open/Closing Functions  ######################################
+// ###########################  Open Functions  ###################################################
 
 // Opens the form popup for editing profile info
 function openFormEdit() {
+    formEdit.classList.remove('form_opened', 'fade-out');
     formName.value = profileName.textContent;
     formOccupation.value = profileOccupation.textContent;
-    document.addEventListener("keyup", escClose);
-    formEdit.classList.add('form_opened');
+    
+    formEdit.classList.add('fade-in', 'form_opened');
 }
 
 // Opens the form popup for adding cards
 function openFormAdd() {
+    formAdd.reset();
+    formAdd.classList.remove('form_opened', 'fade-out');
     document.addEventListener("keyup", escClose);
-    formAdd.classList.add('form_opened');
+    formAdd.classList.add('fade-in', 'form_opened');
 }
+
+// ###########################  Save Functions  ###################################################
 
 // Save Form function, works for both form types
-function saveForm(evt) {
+function saveFormEdit(evt) {
     evt.preventDefault();
-    let form = document.querySelector(".form_opened");
-
-    // Logic for EDIT FORM and ADD FORM
-    if (form.getAttribute("id") === "form-edit") {
-        const nameInput = formName.value;
-        const occInput = formOccupation.value;
-        profileName.textContent = nameInput;
-        profileOccupation.textContent = occInput;
-    } else {
-        const newCard = {
-            name: "",
-            link: ""
-        };
-        newCard.name = formPlace.value;
-        newCard.link = formUrl.value;
-        
-        // Creates new Card object and adds the element to the DOM
-        const card = new Card(newCard, "#card-template");
-        const cardElem = card.generateCard();
-        cardList.prepend(cardElem);
-
-        // Reset fields for next open
-        formPlace.value = "";
-        formUrl.value = "";
-    }
-
-    document.removeEventListener("keyup", escClose);
-    form.classList.add('fade-out');
+    // Logic for EDIT Form
+    const nameInput = formName.value;
+    const occInput = formOccupation.value;
+    profileName.textContent = nameInput;
+    profileOccupation.textContent = occInput;
+    formEdit.classList.add('fade-out');
 }
 
-// Creates listeners for closing and saving forms
-function formListeners(evt) {
-    evt.stopPropagation();
-    if (evt.target.classList.contains("form") || evt.target.classList.contains("form__exit-button")) {
-        let form = document.querySelector(".form_opened");
-        document.removeEventListener("keyup", escClose);
-        form.classList.add('fade-out');
-    } else if (evt.target.classList.contains("form__save-button")) {
-        saveForm(evt);
-    }
+// Edit Form function, works for both form types
+function saveFormAdd(evt) {
+    evt.preventDefault();
+    formAdd.classList.add('fade-out')
+
+    // Logic for ADD Form
+    const newCard = {
+        name: formPlace.value,
+        link: formUrl.value
+    };
+        
+    // Creates new Card object and adds the element to the DOM
+    const card = new Card(newCard, "#card-template");
+    const cardElem = card.generateCard();
+    cardList.prepend(cardElem);
 }
 
 // ###########################  Initialization of Page  ###########################################
@@ -195,26 +144,31 @@ initialCards.forEach((itm) => {
     cardList.prepend(cardElem);
 });
 
+document.addEventListener("keyup", escClose);
+
 // Listeners for edit btn, add btn, and both forms
 editBtn.addEventListener("click", openFormEdit);
 addBtn.addEventListener("click", openFormAdd);
 
-formEdit.addEventListener("click", formListeners);
-formEdit.addEventListener("animationend", function (evt) {
-    if (evt.animationName === 'fadeOut') {closeForm(formEdit)}
-});
-
-formAdd.addEventListener("click", formListeners);
-formAdd.addEventListener("animationend", function (evt) {
-    if (evt.animationName === 'fadeOut') {closeForm(formAdd)}
-});
-
-// Listener for image popup
-page.addEventListener("click", function (evt) {
-    if (evt.target.classList.contains("card__image")) {
-        openImgPopup(evt);
+formEdit.addEventListener("click", (evt) => {
+    evt.stopPropagation();
+    if (evt.target.classList.contains("form")) {
+        closeForm(formEdit);
     }
 });
+
+formAdd.addEventListener("click", (evt) => {
+    evt.stopPropagation();
+    if (evt.target.classList.contains("form")) {
+        closeForm(formAdd);
+    }
+});
+
+formEdit.addEventListener("submit", saveFormEdit);
+formAdd.addEventListener("submit", saveFormAdd);
+
+formEdit.querySelector(".form__exit-button").addEventListener("click", () => closeForm(formEdit));
+formAdd.querySelector(".form__exit-button").addEventListener("click", () => closeForm(formAdd));
 
 // From Validation objects
 formList.forEach((form) => {

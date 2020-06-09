@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="An interactive, responsive page created by myself in my studies of web development.">
     <title>Project 4 - 7: Around the US</title>
     <link rel="stylesheet" href="./pages/index.css">
 </head>
@@ -25,11 +26,11 @@
         <section class="profile">
             <img class="profile__picture" src="images/profile-image.jpg" alt="Pic of Jacques Cousteau">
             <div class="profile__info">
-                <h2 class="profile__name">Jacques Cousteau</h2>
+                <h1 class="profile__name">Jacques Cousteau</h1>
                 <p class="profile__occupation">Explorer</p>
             </div>
-            <button type="button" class="profile__edit-button btn-animate"></button>
-            <button type="button" class="profile__add-button btn-animate"></button>
+            <button type="button" aria-label="Edit Profile Button" class="profile__edit-button btn-animate"></button>
+            <button type="button" aria-label="Add Card Button" class="profile__add-button btn-animate"></button>
         </section>
 
         <!-- Image cards section, will self-adjust dimensions responsively -->
@@ -41,6 +42,13 @@
         <footer class="footer">
             <p class="footer__copyright">&copy;2020 William Schutte. Around the U.S.</p>
         </footer>
+        <div class="picture">
+            <div class="picture__column">
+                <img class="picture__img">
+                <h2 class="picture__title"></h2>
+                <button type="button" aria-label="Close Picture Button" class="picture__exit-button btn-animate"></button>
+            </div>
+        </div>
     </main>
 
     <!-- Popup Edit Form -->
@@ -56,7 +64,7 @@
                 <span id="form-occupation-error" class="form__error"></span>
             </label>
             <button type="submit" class="form__save-button btn-animate">Save</button>
-            <button type="button" class="form__exit-button btn-animate"></button>
+            <button type="button" aria-label="Close Form Button" class="form__exit-button btn-animate"></button>
         </div>
     </form> 
 
@@ -73,7 +81,7 @@
                 <span id="form-url-error" class="form__error"></span>
             </label>
             <button type="submit" class="form__save-button form__save-button_disabled btn-animate" disabled>Create</button>
-            <button type="button" class="form__exit-button btn-animate"></button>
+            <button type="button" aria-label="Close Form Button" class="form__exit-button btn-animate"></button>
         </div>
     </form>
 
@@ -81,27 +89,18 @@
     <template id="card-template">
         <li class="card">
             <img class="card__image">
-            <button type="button" class="card__delete-button"></button>
+            <button type="button" aria-label="Card Delete Button" class="card__delete-button"></button>
             <div class="card__overlay">
                 <h2 class="card__name"></h2>
-                <button type="button" class="card__fav-button"></button>
+                <button type="button" aria-label="Card Favorite Button" class="card__fav-button"></button>
             </div>
         </li>
-    </template>
-
-    <template id="picture-popup-template">
-        <div class="picture">
-            <div class="picture__column">
-                <img class="picture__img">
-                <h2 class="picture__title"></h2>
-                <button type="button" class="picture__exit-button  btn-animate"></button>
-            </div>
-        </div>
     </template>
 
     <!-- Scripts for popup Form -->
     <script type="module" src="./scripts/index.js"></script>
     <script type="module" src="./scripts/Card.js"></script>
+    <script type="module" src="./scripts/utils.js"></script>
 
     <!-- Script for Validation -->
     <script type="module" src="./scripts/FormValidator.js"></script>

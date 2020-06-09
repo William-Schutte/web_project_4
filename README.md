@@ -35,6 +35,30 @@ This page is also available from my GitHub at the following link:
 ***https://william-schutte.github.io/web_project_4/***
 
 -----
+#### Update Notes 6/9/2020 - Project 7, 2nd Review
+
+##### Fixes:
+    JS:
+    Removed old animationDelay variable (unused)
+    Refactored functions to use CSS for popups
+        Only added or removed CSS classes to HTML elements
+    Made two distinct functions for form saving instead of one
+    Used form.reset() to clear fields 
+    Created new listeners for form submit and form exit buttons
+    Created new listeners for clicking outside a form
+    Created utils.js file for img popup handling via Card class
+    Moved listeners/functions for card img popups into Card class
+
+    CSS:
+    Removed units for zero value lengths
+
+    HTML:
+    Added Meta Description tag
+    Changed name element to <h1>
+    Added aria labels to buttons without text
+    Removed old template for pic popup
+
+
 #### Update Notes 6/5/2020 - Project 7, 1st Review
 
 ##### Fixes:

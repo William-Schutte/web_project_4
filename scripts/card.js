@@ -1,4 +1,5 @@
 // ###########################  Card Class  #######################################################
+import { openImgPopup } from "./utils.js";
 
 class Card {
     constructor(newCard, templateSelect) {
@@ -15,9 +16,11 @@ class Card {
     _setEventListeners() {
         const favButton = this._element.querySelector(".card__fav-button");
         const deleteButton = this._element.querySelector(".card__delete-button");
+        const cardImage = this._element.querySelector(".card__image");
 
         favButton.addEventListener("click", (evt) => {this._favToggle(evt)});
         deleteButton.addEventListener("click", (evt) => {this._deleteCard(evt)});
+        cardImage.addEventListener("click", (evt) => {openImgPopup(evt)});
     }
 
     _favToggle(evt) {
@@ -26,12 +29,6 @@ class Card {
 
     _deleteCard(evt) {
         evt.target.parentElement.remove();
-    }
-
-    _escClose(evt) {
-        if (evt.key === "Escape") {
-            this._closeImgPopup();
-        }
     }
 
     generateCard() {
