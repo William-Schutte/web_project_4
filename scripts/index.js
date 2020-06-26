@@ -1,12 +1,12 @@
 // ###########################  Global Variable Declarations  #####################################
 
 // Imports of Classes
-import Section from "./Section.js";
-import Card from "./Card.js";
-import PopupWithForm from "./PopupWithForm.js";
-import FormValidator from "./FormValidator.js";
+import Section from "./section.js";
+import Card from "./card.js";
+import PopupWithForm from "./popupWithForm.js";
+import FormValidator from "./formValidator.js";
 import PopupWithImage from "./popupWithImage.js";
-import UserInfo from "./UserInfo.js";
+import UserInfo from "./userInfo.js";
 
 // Buttons
 const editBtn = document.querySelector('.profile__edit-button');
