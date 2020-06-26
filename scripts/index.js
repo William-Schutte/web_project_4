@@ -1,8 +1,12 @@
 // ###########################  Global Variable Declarations  #####################################
 
 // Imports of Classes
-import { Card } from "./card.js";
-import { FormValidator } from "./FormValidator.js";
+import Section from "./Section.js";
+import Card from "./Card.js";
+import PopupWithForm from "./PopupWithForm.js";
+import FormValidator from "./FormValidator.js";
+import PopupWithImage from "./popupWithImage.js";
+import UserInfo from "./UserInfo.js";
 
 // Buttons
 const editBtn = document.querySelector('.profile__edit-button');
@@ -10,12 +14,6 @@ const addBtn = document.querySelector('.profile__add-button');
 
 // Form Variables
 const formList = Array.from(document.querySelectorAll(".form"));
-const formEdit = document.querySelector('#form-edit');
-const formAdd = document.querySelector('#form-add');
-const formName = formEdit.querySelector(".form__name");
-const formOccupation = formEdit.querySelector(".form__occupation");
-const formPlace = formAdd.querySelector(".form__place");
-const formUrl = formAdd.querySelector(".form__url");
 const profileName = document.querySelector(".profile__name");
 const profileOccupation = document.querySelector(".profile__occupation");
 
@@ -58,119 +56,66 @@ const initialCards = [
     }
 ];
 
-// ###########################  Close Functions  ##################################################
-
-// Function closes form popup
-function closeForm(form) {
-    form.classList.add('fade-out');
-    form.classList.remove('form_opened', 'fade-in');
-    if (form.getAttribute("id") === "form-add") {
-        formPlace.value = "";
-        formUrl.value = "";
-        const submitButton = form.querySelector(".form__save-button");
-        submitButton.setAttribute("disabled", " ");
-        submitButton.classList.add("form__save-button_disabled");
-    }
-}
-
-
-// Function for closing popups with Esc key
-function escClose(evt) {
-    if (evt.key === "Escape") {
-        if (document.querySelector(".form_opened")) {
-            closeForm(document.querySelector(".form_opened"));
-        } else {
-            document.querySelector(".picture").classList.remove("fade-in");
-            document.querySelector(".picture").classList.add("fade-out");
-        }
-    }
-}
-
-// ###########################  Open Functions  ###################################################
-
-// Opens the form popup for editing profile info
-function openFormEdit() {
-    formEdit.classList.remove('form_opened', 'fade-out');
-    formName.value = profileName.textContent;
-    formOccupation.value = profileOccupation.textContent;
-    
-    formEdit.classList.add('fade-in', 'form_opened');
-}
-
-// Opens the form popup for adding cards
-function openFormAdd() {
-    formAdd.reset();
-    formAdd.classList.remove('form_opened', 'fade-out');
-    document.addEventListener("keyup", escClose);
-    formAdd.classList.add('fade-in', 'form_opened');
-}
-
-// ###########################  Save Functions  ###################################################
-
-// Save Form function, works for both form types
-function saveFormEdit(evt) {
-    evt.preventDefault();
-    // Logic for EDIT Form
-    const nameInput = formName.value;
-    const occInput = formOccupation.value;
-    profileName.textContent = nameInput;
-    profileOccupation.textContent = occInput;
-    formEdit.classList.add('fade-out');
-}
-
-// Edit Form function, works for both form types
-function saveFormAdd(evt) {
-    evt.preventDefault();
-    formAdd.classList.add('fade-out')
-
-    // Logic for ADD Form
-    const newCard = {
-        name: formPlace.value,
-        link: formUrl.value
-    };
-        
-    // Creates new Card object and adds the element to the DOM
-    const card = new Card(newCard, "#card-template");
-    const cardElem = card.generateCard();
-    cardList.prepend(cardElem);
-}
 
 // ###########################  Initialization of Page  ###########################################
 
-// Initialization of precoded cards (x6)
-initialCards.forEach((itm) => {
-    const card = new Card(itm, "#card-template");
+// Cards Setup: Initialization of precoded cards (x6)
+const defaultCards = new Section({ items: initialCards, renderer: (itm) => {
+    const card = new Card({ card: itm, handleCardClick: ({name, link}) => {
+        imagePopup.open({name, link});
+    } }, "#card-template");
     const cardElem = card.generateCard();
-    cardList.prepend(cardElem);
+    defaultCards.addItem(cardElem);
+}}, ".cards__container");
+defaultCards.renderSection();
+
+// User Info Setup
+const userInfo = new UserInfo({ name: profileName, occ: profileOccupation });
+
+// Form Setup: Edit user info 
+const formEdit = new PopupWithForm({ formSubmit: (evt) => {
+    evt.preventDefault();
+    const vals = formEdit._getInputValues();
+    userInfo.setUserInfo({ name: vals[0].value, occ: vals[1].value});
+}, selector: '#form-edit' });
+formEdit.setEventListeners();
+
+
+// Form Setup: Add new card 
+const formAdd = new PopupWithForm({ formSubmit: (evt) => {
+    evt.preventDefault();
+    const vals = formAdd._getInputValues();
+    const newCard = { name: vals[0].value, link: vals[1].value };
+    const card = new Card({ card: newCard, handleCardClick: ({name, link}) => {
+        imagePopup.open({name, link});
+    } }, "#card-template");
+    cardList.prepend(card.generateCard());
+}, selector: '#form-add' });
+formAdd.setEventListeners();
+
+// Image popup Setup
+const imagePopup = new PopupWithImage(".picture");
+imagePopup.setEventListeners();
+
+
+// Listeners for form open buttons
+editBtn.addEventListener("click", () => {
+    const fields = userInfo.getUserInfo();
+    document.querySelector(".form__name").value = fields.name;
+    document.querySelector(".form__occupation").value = fields.occ;
+    formEdit.open();
 });
+addBtn.addEventListener("click", () => formAdd.open());
 
-document.addEventListener("keyup", escClose);
+// formEdit.addEventListener("click", (evt) => {
+//     evt.stopPropagation();
+//     if (evt.target.classList.contains("form")) {
+//         closeForm(formEdit);
+//     }
+// });
 
-// Listeners for edit btn, add btn, and both forms
-editBtn.addEventListener("click", openFormEdit);
-addBtn.addEventListener("click", openFormAdd);
 
-formEdit.addEventListener("click", (evt) => {
-    evt.stopPropagation();
-    if (evt.target.classList.contains("form")) {
-        closeForm(formEdit);
-    }
-});
-
-formAdd.addEventListener("click", (evt) => {
-    evt.stopPropagation();
-    if (evt.target.classList.contains("form")) {
-        closeForm(formAdd);
-    }
-});
-
-formEdit.addEventListener("submit", saveFormEdit);
-formAdd.addEventListener("submit", saveFormAdd);
-
-formEdit.querySelector(".form__exit-button").addEventListener("click", () => closeForm(formEdit));
-formAdd.querySelector(".form__exit-button").addEventListener("click", () => closeForm(formAdd));
-
-// From Validation objects
+// Validation: Form validators
 formList.forEach((form) => {
     const formValidator = new FormValidator(settingsObject, form);
     formValidator.enableValidation();

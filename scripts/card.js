@@ -1,11 +1,11 @@
 // ###########################  Card Class  #######################################################
-import { openImgPopup } from "./utils.js";
 
-class Card {
-    constructor(newCard, templateSelect) {
-        this.name = newCard.name;
-        this.link = newCard.link;
+export default class Card {
+    constructor({ card, handleCardClick}, templateSelect) {
+        this.name = card.name;
+        this.link = card.link;
         this.templateSelect = templateSelect;
+        this._handleCardClick = handleCardClick;
     }
 
     _getTemplate(tempSelect) {
@@ -20,7 +20,10 @@ class Card {
 
         favButton.addEventListener("click", (evt) => {this._favToggle(evt)});
         deleteButton.addEventListener("click", (evt) => {this._deleteCard(evt)});
-        cardImage.addEventListener("click", (evt) => {openImgPopup(evt)});
+        cardImage.addEventListener("click", () => {this._handleCardClick({
+            name: this.name,
+            link: this.link
+        })});
     }
 
     _favToggle(evt) {
@@ -42,5 +45,3 @@ class Card {
         return this._element;
     }
 }
-
-export { Card };

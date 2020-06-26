@@ -1,4 +1,4 @@
-# Project 7: Around The U.S.
+# Project 8: Around The U.S.
 ## William Schutte, 2020
 Practicum by Yandex
 -----
@@ -10,6 +10,7 @@ an online collaborative interface prototyping tool.
 This adaptive page includes form validation, interactive popups, fade-in and fade-out animations, functional like and delete buttons,
 modular JavaScript, and Object Oriented JS design.
 
+    Project 8: OOP Refactoring, more classes, and Webpack Bundling
     Project 7: OOP and Modular JS, Card and FormValidator classes/objects
     Project 6: Real time, client-side form validation
     Project 5: JS functions to add, load, like, delete, and open full image on all cards
