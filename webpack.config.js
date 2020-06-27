@@ -18,7 +18,7 @@ module.exports = {
                 exclude: "/node_modules/" // except for those in the node modules folder
             },
             {
-                test: /\.(png|svg|jpg|gif|woff2)$/, // Finds these file types and loads them with file-loader
+                test: /\.(png|svg|jpg|gif|woff2?)$/, // Finds these file types and loads them with file-loader
                 loader: "file-loader"
             },
             {

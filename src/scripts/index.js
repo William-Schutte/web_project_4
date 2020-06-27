@@ -1,5 +1,8 @@
 // ###########################  Global Variable Declarations  #####################################
 
+// CSS Import 
+import "../pages/index.css";
+
 // Imports of Classes
 import Section from "./section.js";
 import Card from "./card.js";
