@@ -107,14 +107,6 @@ editBtn.addEventListener("click", () => {
 });
 addBtn.addEventListener("click", () => formAdd.open());
 
-// formEdit.addEventListener("click", (evt) => {
-//     evt.stopPropagation();
-//     if (evt.target.classList.contains("form")) {
-//         closeForm(formEdit);
-//     }
-// });
-
-
 // Validation: Form validators
 formList.forEach((form) => {
     const formValidator = new FormValidator(settingsObject, form);
