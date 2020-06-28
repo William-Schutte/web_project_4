@@ -7,14 +7,12 @@ export default class Popup {
     }
 
     open() {
-        this._popup.classList.remove('form_opened', 'fade-out');
-        this._popup.classList.add('fade-in', 'form_opened');
+        this._popup.classList.add('popup-opened');
         document.addEventListener('keyup', this._handleEscClose);
     }
 
     close() {
-        this._popup.classList.add('fade-out');
-        this._popup.classList.remove('form_opened', 'fade-in');
+        this._popup.classList.remove('popup-opened');
         document.removeEventListener('keyup', this._handleEscClose);
     }
 

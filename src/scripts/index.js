@@ -4,21 +4,22 @@
 import "../pages/index.css";
 
 // Imports of Classes
-import Section from "./section.js";
-import Card from "./card.js";
-import PopupWithForm from "./popupWithForm.js";
-import FormValidator from "./formValidator.js";
-import PopupWithImage from "./popupWithImage.js";
-import UserInfo from "./userInfo.js";
+import Section from "./components/section.js";
+import Card from "./components/card.js";
+import PopupWithForm from "./components/popupWithForm.js";
+import FormValidator from "./components/formValidator.js";
+import PopupWithImage from "./components/popupWithImage.js";
+import UserInfo from "./components/userInfo.js";
 
 // Buttons
 const editBtn = document.querySelector('.profile__edit-button');
 const addBtn = document.querySelector('.profile__add-button');
 
 // Form Variables
-const formList = Array.from(document.querySelectorAll(".form"));
 const profileName = document.querySelector(".profile__name");
 const profileOccupation = document.querySelector(".profile__occupation");
+const formName = document.querySelector(".form__name");
+const formOcc = document.querySelector(".form__occupation");
 
 // Settings object for form validation
 const settingsObject = {
@@ -62,13 +63,16 @@ const initialCards = [
 
 // ###########################  Initialization of Page  ###########################################
 
+// Image popup Setup
+const imagePopup = new PopupWithImage(".picture");
+imagePopup.setEventListeners();
+
 // Cards Setup: Initialization of precoded cards (x6)
 const defaultCards = new Section({ items: initialCards, renderer: (itm) => {
     const card = new Card({ card: itm, handleCardClick: ({name, link}) => {
         imagePopup.open({name, link});
     } }, "#card-template");
-    const cardElem = card.generateCard();
-    defaultCards.addItem(cardElem);
+    defaultCards.addItem(card.generateCard());
 }}, ".cards__container");
 defaultCards.renderSection();
 
@@ -76,42 +80,35 @@ defaultCards.renderSection();
 const userInfo = new UserInfo({ name: profileName, occ: profileOccupation });
 
 // Form Setup: Edit user info 
-const formEdit = new PopupWithForm({ formSubmit: (evt) => {
+const formEdit = new PopupWithForm({ formSubmit: (evt, vals) => {
     evt.preventDefault();
-    const vals = formEdit._getInputValues();
-    userInfo.setUserInfo({ name: vals[0].value, occ: vals[1].value});
+    userInfo.setUserInfo({ name: vals.field1, occ: vals.field2 });
 }, selector: '#form-edit' });
 formEdit.setEventListeners();
 
-
 // Form Setup: Add new card 
-const formAdd = new PopupWithForm({ formSubmit: (evt) => {
+const formAdd = new PopupWithForm({ formSubmit: (evt, vals) => {
     evt.preventDefault();
-    const vals = formAdd._getInputValues();
-    const newCard = { name: vals[0].value, link: vals[1].value };
+    const newCard = { name: vals.field1, link: vals.field2 };
     const card = new Card({ card: newCard, handleCardClick: ({name, link}) => {
         imagePopup.open({name, link});
     } }, "#card-template");
-    cardList.prepend(card.generateCard());
+    defaultCards.addItem(card.generateCard());
 }, selector: '#form-add' });
 formAdd.setEventListeners();
-
-// Image popup Setup
-const imagePopup = new PopupWithImage(".picture");
-imagePopup.setEventListeners();
-
 
 // Listeners for form open buttons
 editBtn.addEventListener("click", () => {
     const fields = userInfo.getUserInfo();
-    document.querySelector(".form__name").value = fields.name;
-    document.querySelector(".form__occupation").value = fields.occ;
+    formName.value = fields.name;
+    formOcc.value = fields.occ;
     formEdit.open();
 });
 addBtn.addEventListener("click", () => formAdd.open());
 
 // Validation: Form validators
-formList.forEach((form) => {
-    const formValidator = new FormValidator(settingsObject, form);
-    formValidator.enableValidation();
-});
+const formValidatorEdit = new FormValidator(settingsObject, "#form-edit");
+formValidatorEdit.enableValidation();
+
+const formValidatorAdd = new FormValidator(settingsObject, "#form-add");
+formValidatorAdd.enableValidation();

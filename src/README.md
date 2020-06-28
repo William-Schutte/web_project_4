@@ -36,6 +36,29 @@ This page is also available from my GitHub at the following link:
 ***https://william-schutte.github.io/web_project_4/***
 
 -----
+#### Update Notes 6/27/2020 - Project 7, 2nd Review
+
+##### Fixes:
+    Webpack:
+    Uninstalled jquery, not used
+
+    JS:
+    Card.js - Removed redundant variable declarations
+    Card.js - Kept evt argument for listeners as _element is an unrendered doc fragment
+    FormValidator.js - Passed form selector to constructor instead of actual element for consistency accross objects
+    Removed index copy.html backup
+    Index.js - Removed private method references in PopupWithForm constructors, turned val argument into object
+    Index.js - Created global vars for queried elements in editBtn listener so they were not queried each click
+    Popup.js - Finally refactored open/close CSS animation (had 0s time for visibility transition)
+    PopupWithForm.js - used parent setEventListeners() method to simplify code
+    PopupWithImage.js - Removed unneccessary constructor code; added alt tag to image
+    UserInfo.js - fixed comma syntax in constructor (forgot ;)
+    UserInfo.js - renamed private element names to reduce confusion
+
+    CSS:
+    Removed fade-in/out blocks
+    Made popup-opened block, works for all popups
+
 #### Update Notes 6/9/2020 - Project 7, 2nd Review
 
 ##### Fixes:

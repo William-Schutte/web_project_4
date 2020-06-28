@@ -8,18 +8,13 @@ export default class PopupWithForm extends Popup {
     }
 
     _getInputValues() {
-        return this._popup.elements;
+        return { field1: this._popup.elements[0].value, field2: this._popup.elements[1].value };
     }
 
     setEventListeners() {
-        this._popup.addEventListener("click", (evt) => {
-            evt.stopPropagation();
-            if (evt.target.classList.contains("form__exit-button")) {
-                this.close();
-            }
-        });
+        super.setEventListeners();
         this._popup.addEventListener("submit", (evt) => {
-            this._formSubmit(evt);
+            this._formSubmit(evt, this._getInputValues());
             this.close();
             this._popup.reset();
         })

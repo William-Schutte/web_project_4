@@ -6,10 +6,8 @@
 @import url('../blocks/content/content.css');
 @import url('../blocks/profile/profile.css');
 @import url('../blocks/form/form.css');
-@import url('../blocks/form/_opened/form_opened.css');
 @import url('../blocks/cards/cards.css');
 @import url('../blocks/card/card.css');
 @import url('../blocks/picture/picture.css');
 @import url('../blocks/footer/footer.css');
-@import url('../blocks/fade-in/fade-in.css');
-@import url('../blocks/fade-out/fade-out.css');
+@import url('../blocks/popup-opened/popup-opened.css');

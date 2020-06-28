@@ -14,4 +14,5 @@
     background-color: rgba(0, 0, 0, .85);
     opacity: 0;
     visibility: hidden;
+    transition: visibility .4s linear, opacity .4s ease;
 }

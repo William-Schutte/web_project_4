@@ -4,23 +4,18 @@ export default class Card {
     constructor({ card, handleCardClick}, templateSelect) {
         this.name = card.name;
         this.link = card.link;
-        this.templateSelect = templateSelect;
+        this._templateSelect = templateSelect;
         this._handleCardClick = handleCardClick;
     }
 
-    _getTemplate(tempSelect) {
-        const template = document.querySelector(`${tempSelect}`).content.cloneNode(true);
-        return template;
+    _getTemplate() {
+        return document.querySelector(`${this._templateSelect}`).content.cloneNode(true);
     }
 
     _setEventListeners() {
-        const favButton = this._element.querySelector(".card__fav-button");
-        const deleteButton = this._element.querySelector(".card__delete-button");
-        const cardImage = this._element.querySelector(".card__image");
-
-        favButton.addEventListener("click", (evt) => {this._favToggle(evt)});
-        deleteButton.addEventListener("click", (evt) => {this._deleteCard(evt)});
-        cardImage.addEventListener("click", () => {this._handleCardClick({
+        this._element.querySelector(".card__fav-button").addEventListener("click", (evt) => {this._favToggle(evt)});
+        this._element.querySelector(".card__delete-button").addEventListener("click", (evt) => {this._deleteCard(evt)});
+        this._element.querySelector(".card__image").addEventListener("click", () => {this._handleCardClick({
             name: this.name,
             link: this.link
         })});
@@ -32,10 +27,11 @@ export default class Card {
 
     _deleteCard(evt) {
         evt.target.parentElement.remove();
+        this._element = null;
     }
 
     generateCard() {
-        this._element = this._getTemplate(this.templateSelect);
+        this._element = this._getTemplate();
         this._setEventListeners();
 
         this._element.querySelector(".card__name").textContent = this.name;

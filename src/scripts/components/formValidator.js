@@ -3,7 +3,7 @@
 export default class FormValidator {
     constructor(settings, formElement) {
         this.settings = settings;
-        this.formElement = formElement;
+        this.formElement = document.querySelector(formElement);
     }
 
     // Function shows error message below input field
