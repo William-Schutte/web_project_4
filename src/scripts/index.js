@@ -32,7 +32,6 @@ const settingsObject = {
 };
 
 // Image Cards Variables
-const cardList = document.querySelector(".cards__container");
 const initialCards = [
     {
         name: "Amsterdam",

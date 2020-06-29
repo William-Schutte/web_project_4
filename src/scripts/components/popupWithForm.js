@@ -8,7 +8,7 @@ export default class PopupWithForm extends Popup {
     }
 
     _getInputValues() {
-        return { field1: this._popup.elements[0].value, field2: this._popup.elements[1].value };
+        return { field1: this._popup.elements['primary'].value, field2: this._popup.elements['secondary'].value };
     }
 
     setEventListeners() {
@@ -19,5 +19,4 @@ export default class PopupWithForm extends Popup {
             this._popup.reset();
         })
     }
-
 }

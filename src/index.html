@@ -56,11 +56,11 @@
         <div class="form__container">
             <h2 class="form__title">Edit profile</h2>
             <label class="form__input-field">
-                <input id="form-name" class="form__name form__input" type="text" placeholder="Name" required minlength="2" maxlength="40" pattern="[A-Za-z -]*">
+                <input id="form-name" name="primary" class="form__name form__input" type="text" placeholder="Name" required minlength="2" maxlength="40" pattern="[A-Za-z -]*">
                 <span id="form-name-error" class="form__error"></span>
             </label>
             <label class="form__input-field">
-                <input id="form-occupation" class="form__occupation form__input" type="text" required minlength="2" maxlength="200">
+                <input id="form-occupation" name="secondary" class="form__occupation form__input secondary" type="text" required minlength="2" maxlength="200">
                 <span id="form-occupation-error" class="form__error"></span>
             </label>
             <button type="submit" class="form__save-button btn-animate">Save</button>
@@ -73,11 +73,11 @@
         <div class="form__container">
             <h2 class="form__title">New place</h2>
             <label class="form__input-field">
-                <input id="form-place" class="form__place form__input" type="text" placeholder="Title" required minlength="1" maxlength="30">
+                <input id="form-place" name="primary" class="form__place form__input" type="text" placeholder="Title" required minlength="1" maxlength="30">
                 <span id="form-place-error" class="form__error"></span>
             </label>
             <label class="form__input-field">
-                <input id="form-url" class="form__url form__input" type="url" placeholder="Image link" required>
+                <input id="form-url" name="secondary" class="form__url form__input" type="url" placeholder="Image link" required>
                 <span id="form-url-error" class="form__error"></span>
             </label>
             <button type="submit" class="form__save-button form__save-button_disabled btn-animate" disabled>Create</button>

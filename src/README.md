@@ -39,6 +39,13 @@ This page is also available from my GitHub at the following link:
 #### Update Notes 6/27/2020 - Project 7, 2nd Review
 
 ##### Fixes:
+    JS:
+    popupWithForm.js - Used name attribute to pull field values instead of indices
+    index.js - Removed deprecated variable cardList
+
+#### Update Notes 6/27/2020 - Project 7, 2nd Review
+
+##### Fixes:
     Webpack:
     Uninstalled jquery, not used
 
