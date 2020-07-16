@@ -3,6 +3,7 @@
 @import url('./__info/profile__info.css');
 @import url('./__name/profile__name.css');
 @import url('./__occupation/profile__occupation.css');
+@import url('./__pic-button/profile__pic-button.css');
 @import url('./__picture/profile__picture.css');
 
 .profile {

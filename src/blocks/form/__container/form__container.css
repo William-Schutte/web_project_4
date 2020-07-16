@@ -3,7 +3,8 @@
     margin-top: 30vh;
     box-sizing: border-box;
     position: relative;
-    height: 330px;
+    height: min-content;
+    max-height: 330px;
     width: 430px;
     display: flex;
     flex-direction: column;

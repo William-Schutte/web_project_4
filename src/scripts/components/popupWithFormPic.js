@@ -1,4 +1,4 @@
-// ###########################  PopupWithFormPic Class  ##############################################
+// ###########################  PopupWithForm Class  ##############################################
 import Popup from "./popup.js";
 
 export default class PopupWithForm extends Popup {
@@ -7,14 +7,14 @@ export default class PopupWithForm extends Popup {
         this._formSubmit = formSubmit;
     }
 
-    _getInputValues() {
-        return { field1: this._popup.elements['primary'].value, field2: this._popup.elements['secondary'].value };
+    _getInputValue() {
+        return { field1: this._popup.elements['primary'].value };
     }
 
     setEventListeners() {
         super.setEventListeners();
         this._popup.addEventListener("submit", (evt) => {
-            this._formSubmit(evt, this._getInputValues());
+            this._formSubmit(evt, this._getInputValue());
             //this.close();
             //this._popup.reset();
         })

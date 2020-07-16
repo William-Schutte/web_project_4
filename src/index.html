@@ -24,7 +24,8 @@
     <main class="content">
         <!-- Profile section at top of page, contains two buttons for editing profile and cards -->
         <section class="profile">
-            <img class="profile__picture" src="images/profile-image.jpg" alt="Pic of Jacques Cousteau">
+            <button type="button" class="profile__pic-button"></button>
+            <img class="profile__picture" src="images/profile-image.jpg" alt="My Profile Pic">
             <div class="profile__info">
                 <h1 class="profile__name">Jacques Cousteau</h1>
                 <p class="profile__occupation">Explorer</p>
@@ -36,7 +37,7 @@
         <!-- Image cards section, will self-adjust dimensions responsively -->
         <section class="cards">
             <ul class="cards__container">
-            </ul> 
+            </ul>
         </section>
 
         <footer class="footer">
@@ -51,7 +52,7 @@
         </div>
     </main>
 
-    <!-- Popup Edit Form -->
+    <!-- Popup Edit User Info Form -->
     <form class="form" id="form-edit">
         <div class="form__container">
             <h2 class="form__title">Edit profile</h2>
@@ -62,6 +63,19 @@
             <label class="form__input-field">
                 <input id="form-occupation" name="secondary" class="form__occupation form__input secondary" type="text" required minlength="2" maxlength="200">
                 <span id="form-occupation-error" class="form__error"></span>
+            </label>
+            <button type="submit" class="form__save-button btn-animate">Save</button>
+            <button type="button" aria-label="Close Form Button" class="form__exit-button btn-animate"></button>
+        </div>
+    </form> 
+
+    <!-- Popup Edit User Pic Form -->
+    <form class="form" id="form-pic">
+        <div class="form__container">
+            <h2 class="form__title">Change Userpic</h2>
+            <label class="form__input-field">
+                <input id="form-name" name="primary" class="form__name form__input" type="url" placeholder="Image link" required>
+                <span id="form-name-error" class="form__error"></span>
             </label>
             <button type="submit" class="form__save-button btn-animate">Save</button>
             <button type="button" aria-label="Close Form Button" class="form__exit-button btn-animate"></button>
@@ -85,6 +99,15 @@
         </div>
     </form>
 
+    <!-- Popup Delete Form -->    
+    <form class="form" id="form-delete">
+        <div class="form__container">
+            <h2 class="form__title">Are you sure?</h2>
+            <button type="submit" class="form__save-button btn-animate">Yes</button>
+            <button type="button" aria-label="Close Form Button" class="form__exit-button btn-animate"></button>
+        </div>
+    </form>
+
     <!-- Template for Image Cards -->
     <template id="card-template">
         <li class="card">
@@ -92,19 +115,12 @@
             <button type="button" aria-label="Card Delete Button" class="card__delete-button"></button>
             <div class="card__overlay">
                 <h2 class="card__name"></h2>
-                <button type="button" aria-label="Card Favorite Button" class="card__fav-button"></button>
+                <div class="card__like-column">
+                    <button type="button" aria-label="Card Favorite Button" class="card__fav-button"></button>
+                    <p class="card__like-count"></p>
+                </div>
             </div>
         </li>
     </template>
-
-    <!-- Scripts -->
-    <!-- <script type="module" src="./scripts/index.js"></script>
-    <script type="module" src="./scripts/formValidator.js"></script>
-    <script type="module" src="./scripts/card.js"></script>
-    <script type="module" src="./scripts/popup.js"></script>
-    <script type="module" src="./scripts/popupWithForm.js"></script>
-    <script type="module" src="./scripts/popupWithImage.js"></script>
-    <script type="module" src="./scripts/section.js"></script>
-    <script type="module" src="./scripts/userInfo.js"></script> -->
 </body>
 </html>

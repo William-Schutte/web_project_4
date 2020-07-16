@@ -4,6 +4,10 @@ export default class Popup {
     constructor(selector) {
         this._popup = document.querySelector(selector);
         this._handleEscClose = this._handleEscClose.bind(this);
+        if (this._popup.querySelector(".form__save-button")) {
+            this._submitBtn = this._popup.querySelector(".form__save-button")
+            this._submitBtnText = this._submitBtn.textContent;
+        }
     }
 
     open() {
@@ -19,6 +23,14 @@ export default class Popup {
     _handleEscClose(evt) {
         if (evt.key === "Escape") {
             this.close();
+        }
+    }
+
+    changeLoadingText(isLoading) {
+        if (isLoading) {
+            this._submitBtn.textContent = "Saving...";
+        } else {
+            this._submitBtn.textContent = this._submitBtnText;
         }
     }
     
