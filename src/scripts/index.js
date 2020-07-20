@@ -60,7 +60,6 @@ const defaultCards = new Section({ items: [], renderer: (itm) => {
         } else if (evt.target.classList.contains("card__fav-button")) {
             api.likeCard(itm, myUserId)
                 .then((res) => {
-                    console.log(res);
                     if (res.likes.some((like) => {return (like._id === myUserId);})) {
                         evt.target.classList.add("card__fav-button_active");
                     } else {
@@ -133,16 +132,27 @@ const formAdd = new PopupWithForm({ formSubmit: (evt, vals) => {
     formAdd.changeLoadingText(true);
     api.addNewCard({ name: vals.field1, link: vals.field2})
         .then((res) => {
-            console.log(res);
-            const card = new Card({ card: res, 
-                handleCardClick: (evt, {name, link}) => {imagePopup.open({name, link})}
-                }, "#card-template", myUserId);
+            const card = new Card({ card: res, handleCardClick: (evt, {name, link}) => {
+                if (evt.target.classList.contains("card__image")) {
+                    imagePopup.open({name, link});
+                } else if (evt.target.classList.contains("card__fav-button")) {
+                    api.likeCard(res, myUserId)
+                        .then((res) => {
+                            if (res.likes.some((like) => {return (like._id === myUserId);})) {
+                                evt.target.classList.add("card__fav-button_active");
+                            } else {
+                                evt.target.classList.remove("card__fav-button_active");
+                            }
+                            evt.target.parentElement.querySelector(".card__like-count").textContent = res.likes.length;
+                        });
+                }
+            } }, "#card-template", myUserId);
             defaultCards.addItem(card.generateCard());
             formAdd.close()
         })
         .catch((err) => console.log(err))
         .finally(() => {
-            formAdd.changeLoadingText(true);
+            formAdd.changeLoadingText(false);
             formAdd._popup.reset();
         });
     }, selector: '#form-add' });
