@@ -2,6 +2,10 @@
 ## William Schutte, 2020
 Practicum by Yandex
 -----
+### GitHub Pages Link
+
+(This project is viewable here!)[https://william-schutte.github.io/web_project_4/dist]
+
 ### Overview
 This project represents work from the 4th through 7th projects for the web-dev course. This chapter is the first to include
 JavaScript, user interactivity, and communication between HTML, CSS, and JS. The project brief was provided on Figma, 
@@ -29,11 +33,7 @@ GitHub
 HTML, CSS, JS
 Figma
 
-### GitHub Pages Link
 
-This page is also available from my GitHub at the following link:
-
-***https://william-schutte.github.io/web_project_4/dist***
 
 -----
 #### Update Notes 6/27/2020 - Project 7, 2nd Review
