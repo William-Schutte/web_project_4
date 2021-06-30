@@ -4,7 +4,7 @@ Practicum by Yandex
 -----
 ### GitHub Pages Link
 
-(This project is viewable here!)[https://william-schutte.github.io/web_project_4/dist]
+[This project is viewable here!](https://william-schutte.github.io/web_project_4/dist)
 
 ### Overview
 This project represents work from the 4th through 7th projects for the web-dev course. This chapter is the first to include
