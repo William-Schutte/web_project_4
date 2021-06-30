@@ -33,7 +33,7 @@ Figma
 
 This page is also available from my GitHub at the following link:
 
-***https://william-schutte.github.io/web_project_4/***
+***https://william-schutte.github.io/web_project_4/dist***
 
 -----
 #### Update Notes 6/27/2020 - Project 7, 2nd Review
